@@ -6,6 +6,7 @@ const (
 	AddressObjectSourceValidator        = "VALIDATOR"
 )
 
+// See https://goshippo.com/docs/reference#addresses
 type AddressInput struct {
 	ObjectPurpose string `json:"object_purpose"`
 	Name          string `json:"name,omitempty"`
@@ -23,6 +24,7 @@ type AddressInput struct {
 	Metadata      string `json:"metadata,omitempty"`
 }
 
+// See https://goshippo.com/docs/reference#addresses
 type AddressOutput struct {
 	AddressInput
 	CommonOutputFields

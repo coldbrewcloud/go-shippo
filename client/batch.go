@@ -8,6 +8,9 @@ import (
 	"github.com/d5/go-shippo/models"
 )
 
+// RetrieveBatch retrieves an existing batch. BatchShipments are displayed 100 at a time.
+// You can iterate through each "page" by specifying non-zero value to page parameter.
+// You can also filter based on BatchShipment status using objectResultsFilter parameter
 func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter string) (*models.BatchOutput, error) {
 	url := "/batches/" + objectID
 	qs := []string{}
@@ -26,18 +29,24 @@ func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter s
 	return output, err
 }
 
+// AddBatchShipmentsToBatch adds batch shipment(s) to an existing Batch.
 func (c *Client) AddBatchShipmentsToBatch(objectID string, batchShipments []*models.BatchShipmentInput) (*models.BatchOutput, error) {
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/add_shipments", &batchShipments, output)
 	return output, err
 }
 
+// RemoveBatchShipmentsFromBatch removes batch shipment(s) from an existing Batch.
 func (c *Client) RemoveBatchShipmentsFromBatch(objectID string, batchShipmentIDs []string) (*models.BatchOutput, error) {
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/remove_shipments", &batchShipmentIDs, output)
 	return output, err
 }
 
+// PurchaseBatch purchases an existing batch with an ObjectStatus of "VALID".
+// Once you send invoke this function, the batch ObjectStatus will be change to PURCHASING.
+// When all the shipments are purchased, the ObjectStatus will change to PURCHASED
+// and you will receive a batch_purchased webhook indicating that the batch has been purchased.
 func (c *Client) PurchaseBatch(objectID string) (*models.BatchOutput, error) {
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/purchase", nil, output)

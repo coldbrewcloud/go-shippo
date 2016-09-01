@@ -19,6 +19,7 @@ type Client struct {
 
 type listOutputCallback func(v json.RawMessage) error
 
+// NewClient creates a new Shippo API client instance.
 func NewClient(privateToken string) *Client {
 	return &Client{
 		privateToken: privateToken,

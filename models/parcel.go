@@ -1,5 +1,6 @@
 package models
 
+// See https://goshippo.com/docs/reference#parcels
 type ParcelInput struct {
 	Length       string       `json:"length"`
 	Width        string       `json:"width"`
@@ -24,6 +25,7 @@ type ParcelInsurance struct {
 	Content  string `json:"content"`
 }
 
+// See https://goshippo.com/docs/reference#parcels
 type ParcelOutput struct {
 	ParcelInput
 	CommonOutputFields

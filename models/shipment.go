@@ -40,6 +40,7 @@ const (
 	ShipmentDangerousGoodsCode09 = "019"
 )
 
+// See https://goshippo.com/docs/reference#shipments
 type ShipmentInput struct {
 	ObjectPurpose      string         `json:"object_purpose"`
 	AddressFrom        string         `json:"address_from"`
@@ -82,6 +83,7 @@ type ShipmentBilling struct {
 	Country string `json:"country"`
 }
 
+// See https://goshippo.com/docs/reference#shipments
 type ShipmentOutput struct {
 	ShipmentInput
 	CommonOutputFields

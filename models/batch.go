@@ -2,6 +2,7 @@ package models
 
 import "encoding/json"
 
+// See https://goshippo.com/docs/reference#batches
 type BatchInput struct {
 	DefaultCarrierAccount    string                `json:"default_carrier_account,omitempty"`
 	DefaultServiceLevelToken string                `json:"default_servicelevel_token,omitempty"`
@@ -10,6 +11,7 @@ type BatchInput struct {
 	BatchShipments           []*BatchShipmentInput `json:"batch_shipments"`
 }
 
+// See https://goshippo.com/docs/reference#batches
 type BatchOutput struct {
 	//BatchInput // seems that output format is slightly different
 	CommonOutputFields
@@ -36,6 +38,7 @@ type BatchObjectResults struct {
 	CreationSucceeded int `json:"creation_succeeded"`
 }
 
+// See https://goshippo.com/docs/reference#batches-batchshipments
 type BatchShipmentInput struct {
 	CarrierAccount    string `json:"carrier_account,omitempty"`
 	ServiceLevelToken string `json:"servicelevel_token,omitempty"`
@@ -43,6 +46,7 @@ type BatchShipmentInput struct {
 	Metadata          string `json:"metadata,omitempty"`
 }
 
+// See https://goshippo.com/docs/reference#batches-batchshipments
 type BatchShipmentOutput struct {
 	BatchShipmentInput
 	CommonOutputFields

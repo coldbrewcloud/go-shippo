@@ -2,6 +2,7 @@ package models
 
 import "time"
 
+// See https://goshippo.com/docs/reference#manifests
 type ManifestInput struct {
 	CarrierAccount string    `json:"carrier_account"`
 	SubmissionDate time.Time `json:"submission_date"`
@@ -10,6 +11,7 @@ type ManifestInput struct {
 	Async          bool      `json:"async"`
 }
 
+// See https://goshippo.com/docs/reference#manifests
 type ManifestOutput struct {
 	ManifestInput
 	CommonOutputFields

@@ -10,11 +10,13 @@ const (
 	TrackingStatusStatusReturned  = "RETURNED"
 )
 
+// See https://goshippo.com/docs/reference#tracks
 type TrackingStatusInput struct {
 	Carrier        string `json:"carrier"`
 	TrackingNumber string `json:"tracking_number"`
 }
 
+// See https://goshippo.com/docs/reference#tracks
 type TrackingStatusOutput struct {
 	TrackingStatusInput
 	TrackingStatus  *TrackingStatusDict   `json:"tracking_status"`

@@ -25,6 +25,7 @@ const (
 	CustomsIncotermCIP = "CIP"
 )
 
+// See https://goshippo.com/docs/reference#customsitems
 type CustomsItemInput struct {
 	Description   string `json:"description"`
 	Quantity      int    `json:"quantity"`
@@ -37,11 +38,13 @@ type CustomsItemInput struct {
 	Metadata      string `json:"metadata,omitempty"`
 }
 
+// See https://goshippo.com/docs/reference#customsitems
 type CustomsItemOutput struct {
 	CustomsItemInput
 	CommonOutputFields
 }
 
+// See https://goshippo.com/docs/reference#customsdeclarations
 type CustomsDeclarationInput struct {
 	CertifySigner       string   `json:"certify_signer"`
 	Certify             bool     `json:"certify"`
@@ -61,6 +64,7 @@ type CustomsDeclarationInput struct {
 	Metadata            string   `json:"metadata,omitempty"`
 }
 
+// See https://goshippo.com/docs/reference#customsdeclarations
 type CustomsDeclarationOutput struct {
 	CustomsDeclarationInput
 	CommonOutputFields

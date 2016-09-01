@@ -1,5 +1,6 @@
 package models
 
+// See https://goshippo.com/docs/reference#transactions
 type TransactionInput struct {
 	Rate          string `json:"rate"`
 	Metadata      string `json:"metadata,omitempty"`
@@ -7,6 +8,7 @@ type TransactionInput struct {
 	Async         bool   `json:"async"`
 }
 
+// See https://goshippo.com/docs/reference#transactions
 type TransactionOutput struct {
 	TransactionInput
 	CommonOutputFields

@@ -12,14 +12,14 @@ type TransactionInput struct {
 type TransactionOutput struct {
 	TransactionInput
 	CommonOutputFields
-	ObjectStatus         string                `json:"object_status"`
+	ObjectStatus         string                `json:"object_status,omitempty"`
 	WasTest              bool                  `json:"was_test"`
-	TrackingNumber       string                `json:"tracking_number"`
-	TrackingStatus       *TrackingStatusDict   `json:"tracking_status"`
-	TrackingHistory      []*TrackingStatusDict `json:"tracking_history"`
-	TrackingURLProvider  string                `json:"tracking_url_provider"`
-	LabelURL             string                `json:"label_url"`
-	CommercialInvoiceURL string                `json:"commercial_invoice_url"`
-	Messages             []OutputMessage       `json:"messages"`
+	TrackingNumber       string                `json:"tracking_number,omitempty"`
+	TrackingStatus       *TrackingStatusDict   `json:"tracking_status,omitempty"`
+	TrackingHistory      []*TrackingStatusDict `json:"tracking_history,omitempty"`
+	TrackingURLProvider  string                `json:"tracking_url_provider,omitempty"`
+	LabelURL             string                `json:"label_url,omitempty"`
+	CommercialInvoiceURL string                `json:"commercial_invoice_url,omitempty"`
+	Messages             []*OutputMessage      `json:"messages,omitempty"`
 	Async                bool                  `json:"async"`
 }

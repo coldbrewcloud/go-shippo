@@ -3,6 +3,7 @@ package client
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/d5/go-shippo/models"
 )
@@ -16,6 +17,10 @@ import (
 // When the ReturnOf flag is set, Shippo API will automatically swap the address_from and address_to fields for label creation.
 // Please check the return service terms and condition for the carrier you intend to use.
 func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.ShipmentOutput, error) {
+	if input.SubmissionDate.IsZero() {
+		input.SubmissionDate = time.Now()
+	}
+
 	output := &models.ShipmentOutput{}
 	err := c.do(http.MethodPost, "/shipments/", input, output)
 	return output, err

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 
@@ -10,46 +11,104 @@ import (
 )
 
 func main() {
-	c := client.NewClient(os.Getenv("PRIVATE_TOKEN"))
+	privateToken := os.Getenv("PRIVATE_TOKEN")
+	if privateToken == "" {
+		panic(errors.New("Please set $PRIVATE_TOKEN with your Shippo API private token."))
+	}
 
-	addressInput := &models.AddressInput{
-		ObjectPurpose: "PURCHASE",
-		Name:          "Shawn Ippotle",
-		Company:       "Shippo",
+	// create a Shippo Client instance
+	c := client.NewClient(privateToken)
+
+	// create shipment
+	shipment := createShipment(c)
+
+	// purchase shipping label
+	purchaseShippingLabel(c, shipment)
+}
+
+func createShipment(c *client.Client) *models.ShipmentOutput {
+	// create a sending address
+	addressFromInput := &models.AddressInput{
+		ObjectPurpose: models.ObjectPurposePurchase,
+		Name:          "Mr. Hippo",
 		Street1:       "215 Clayton St.",
 		City:          "San Francisco",
 		State:         "CA",
 		Zip:           "94117",
 		Country:       "US",
 		Phone:         "+1 555 341 9393",
-		Email:         "shippotle@goshippo.com",
-		IsResidential: true,
-		Metadata:      "Customer ID 123456",
+		Email:         "support@goshippo.com",
 	}
-
-	addressOutput, err := c.CreateAddress(addressInput)
+	addressFrom, err := c.CreateAddress(addressFromInput)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Address created: %s\n", dump(addressOutput))
 
-	retrievedAddress, err := c.RetrieveAddress(addressOutput.ObjectID)
+	// create a receiving address
+	addressToInput := &models.AddressInput{
+		ObjectPurpose: models.ObjectPurposePurchase,
+		Name:          "Mrs. Hippo",
+		Street1:       "965 Mission St.",
+		City:          "San Francisco",
+		State:         "CA",
+		Zip:           "94105",
+		Country:       "US",
+		Phone:         "+1 555 341 9393",
+		Email:         "support@goshippo.com",
+	}
+	addressTo, err := c.CreateAddress(addressToInput)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Address retrieved: %s\n", dump(retrievedAddress))
 
-	allAddresses, err := c.ListAllAddresses()
+	// create a parcel
+	parcelInput := &models.ParcelInput{
+		Length:       "5",
+		Width:        "5",
+		Height:       "5",
+		DistanceUnit: models.DistanceUnitInch,
+		Weight:       "2",
+		MassUnit:     models.MassUnitPound,
+	}
+	parcel, err := c.CreateParcel(parcelInput)
 	if err != nil {
 		panic(err)
 	}
-	for i, a := range allAddresses {
-		fmt.Printf("List [%d]: %s\n", i, dump(a))
+
+	// create a shipment
+	shipmentInput := &models.ShipmentInput{
+		ObjectPurpose: models.ObjectPurposePurchase,
+		AddressFrom:   addressFrom.ObjectID,
+		AddressTo:     addressTo.ObjectID,
+		Parcel:        parcel.ObjectID,
+		Async:         false,
 	}
+	shipment, err := c.CreateShipment(shipmentInput)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Shipment:\n%s\n", dump(shipment))
+
+	return shipment
+}
+
+func purchaseShippingLabel(c *client.Client, shipment *models.ShipmentOutput) {
+	transactionInput := &models.TransactionInput{
+		Rate:          shipment.RatesList[len(shipment.RatesList)-1].ObjectID,
+		LabelFileType: models.LabelFileTypePDF,
+		Async:         false,
+	}
+	transaction, err := c.PurchaseShippingLabel(transactionInput)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("Transaction:\n%s\n", dump(transaction))
 }
 
 func dump(v interface{}) string {
-	data, err := json.Marshal(v)
+	data, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
 		panic(err)
 	}

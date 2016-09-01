@@ -34,12 +34,8 @@ func (c *Client) do(method, path string, input, output interface{}) error {
 		return fmt.Errorf("Error creating request object: %s", err.Error())
 	}
 
-	status, err := c.executeRequest(req, output)
-	if err != nil {
-		return fmt.Errorf("Error executing request: [%d] %s", status, err.Error())
-	}
-	if status < 200 || status >= 300 {
-		return fmt.Errorf("Error status returned: %d", status)
+	if err := c.executeRequest(req, output); err != nil {
+		return fmt.Errorf("Error executing request: %s", err.Error())
 	}
 
 	return nil
@@ -55,12 +51,8 @@ func (c *Client) doList(method, path string, input interface{}, outputCallback l
 		}
 
 		listOutput := &models.ListAPIOutput{}
-		status, err := c.executeRequest(req, listOutput)
-		if err != nil {
-			return fmt.Errorf("Error executing request: [%d] %s", status, err.Error())
-		}
-		if status < 200 || status >= 300 {
-			return fmt.Errorf("Error status returned: %d", status)
+		if err := c.executeRequest(req, listOutput); err != nil {
+			return fmt.Errorf("Error executing request: %s", err.Error())
 		}
 
 		for _, v := range listOutput.Results {
@@ -106,25 +98,28 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (*htt
 	return req, nil
 }
 
-func (c *Client) executeRequest(req *http.Request, output interface{}) (int, error) {
+func (c *Client) executeRequest(req *http.Request, output interface{}) error {
 	httpClient := http.Client{}
 
 	res, err := httpClient.Do(req)
 	if err != nil {
-		return 0, fmt.Errorf("Error making HTTP request: %s", err.Error())
+		return fmt.Errorf("Error making HTTP request: %s", err.Error())
 	}
 	defer res.Body.Close()
 
 	resData, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return res.StatusCode, fmt.Errorf("Error reading response body data: %s", err.Error())
+		return fmt.Errorf("Error reading response body data: %s", err.Error())
 	}
-
-	if output != nil && len(resData) > 0 {
-		if err := json.Unmarshal(resData, output); err != nil {
-			return res.StatusCode, fmt.Errorf("Error unmarshaling response data: %s", err.Error())
+	if res.StatusCode >= 200 && res.StatusCode < 300 {
+		if output != nil && len(resData) > 0 {
+			if err := json.Unmarshal(resData, output); err != nil {
+				return fmt.Errorf("Error unmarshaling response data: %s", err.Error())
+			}
 		}
+
+		return nil
 	}
 
-	return res.StatusCode, nil
+	return fmt.Errorf("Error status code returned: [%s] %s", res.Status, string(resData))
 }

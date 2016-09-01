@@ -55,25 +55,25 @@ type ShipmentInput struct {
 	InsuranceCurrency  string         `json:"insurance_currency,omitempty"`
 	Reference1         string         `json:"reference_1,omitempty"`
 	Reference2         string         `json:"reference_2,omitempty"`
-	CarrierAccounts    []string       `json:"carrier_accounts"`
+	CarrierAccounts    []string       `json:"carrier_accounts,omitempty"`
 	Metadata           string         `json:"metadata,omitempty"`
 	Async              bool           `json:"async"`
-	Extra              *ShipmentExtra `json:"extra"`
+	Extra              *ShipmentExtra `json:"extra,omitempty"`
 }
 
 type ShipmentExtra struct {
 	SignatureConfirmation   string           `json:"signature_confirmation,omitempty"`
 	SaturdayDelivery        bool             `json:"saturday_delivery"`
 	InsuranceContent        string           `json:"insurance_content,omitempty"`
-	InsuranceProvider       string           `json:"insurance_provider"`
+	InsuranceProvider       string           `json:"insurance_provider,omitempty"`
 	BypassAddressValidation bool             `json:"bypass_address_validation"`
 	UseManifests            bool             `json:"use_manifests"`
 	RequestRetailRates      bool             `json:"request_retail_rates"`
-	Billing                 *ShipmentBilling `json:"billing"`
-	COD                     *COD             `json:"COD"`
-	USPSSortType            string           `json:"usps_sort_type"`
-	USPSEntryFacility       string           `json:"usps_entry_facility"`
-	DangerousGoodsCode      string           `json:"dangerous_goods_code"`
+	Billing                 *ShipmentBilling `json:"billing,omitempty"`
+	COD                     *COD             `json:"COD,omitempty"`
+	USPSSortType            string           `json:"usps_sort_type,omitempty"`
+	USPSEntryFacility       string           `json:"usps_entry_facility,omitempty"`
+	DangerousGoodsCode      string           `json:"dangerous_goods_code,omitempty"`
 }
 
 type ShipmentBilling struct {

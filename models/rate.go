@@ -18,9 +18,9 @@ type RateOutput struct {
 	DurationTerms          string           `json:"duration_terms"`
 	Trackable              bool             `json:"trackable"`
 	Insurance              bool             `json:"insurance"`
-	InsuranceAmountLocal   float64          `json:"insurance_amount_local"`
+	InsuranceAmountLocal   string           `json:"insurance_amount_local"`
 	InsuranceCurrencyLocal string           `json:"insurance_currency_local"`
-	InsuranceAmount        float64          `json:"insurance_amount"`
+	InsuranceAmount        string           `json:"insurance_amount"`
 	InsuranceCurrency      string           `json:"insurance_currency"`
 	CarrierAccount         string           `json:"carrier_account"`
 	Messages               []*OutputMessage `json:"messages"`

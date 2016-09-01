@@ -9,8 +9,8 @@ type ParcelInput struct {
 	Weight       string       `json:"weight"`
 	MassUnit     string       `json:"mass_unit"`
 	Template     string       `json:"template,omitempty"` // https://goshippo.com/docs/reference#parceltemplates
-	Metadata     string       `json:"metadata"`
-	Extra        *ParcelExtra `json:"extra"`
+	Metadata     string       `json:"metadata,omitempty"`
+	Extra        *ParcelExtra `json:"extra,omitempty"`
 }
 
 type ParcelExtra struct {

@@ -1,7 +1,5 @@
 package models
 
-import "time"
-
 const (
 	TrackingStatusStatusUnknown   = "UNKNOWN"
 	TrackingStatusStatusDelivered = "DELIVERED"
@@ -19,20 +17,20 @@ type TrackingStatusInput struct {
 // See https://goshippo.com/docs/reference#tracks
 type TrackingStatusOutput struct {
 	TrackingStatusInput
-	TrackingStatus  *TrackingStatusDict   `json:"tracking_status"`
-	TrackingHistory []*TrackingStatusDict `json:"tracking_history"`
+	TrackingStatus  *TrackingStatusDict   `json:"tracking_status,omitempty"`
+	TrackingHistory []*TrackingStatusDict `json:"tracking_history,omitempty"`
 }
 
 type TrackingStatusDict struct {
-	Status       string                  `json:"status"`
-	StatusDetail string                  `json:"status_detail"`
-	StatusDate   time.Time               `json:"status_date"`
-	Location     *TrackingStatusLocation `json:"location"`
+	Status       string                  `json:"status,omitempty"`
+	StatusDetail string                  `json:"status_detail,omitempty"`
+	StatusDate   string                  `json:"status_date,omitempty"`
+	Location     *TrackingStatusLocation `json:"location,omitempty"`
 }
 
 type TrackingStatusLocation struct {
-	City    string `json:"city"`
-	State   string `json:"state"`
-	Zip     string `json:"zip"`
-	Country string `json:"country"`
+	City    string `json:"city,omitempty"`
+	State   string `json:"state,omitempty"`
+	Zip     string `json:"zip,omitempty"`
+	Country string `json:"country,omitempty"`
 }

@@ -1,19 +1,5 @@
 package models
 
-const (
-	ParcelDistanceUnitCentiMeter = "cm"
-	ParcelDistanceUnitInch       = "in"
-	ParcelDistanceUnitFoot       = "ft"
-	ParcelDistanceUnitMilliMeter = "mm"
-	ParcelDistanceUnitMeter      = "m"
-	ParcelDistanceUnitYard       = "yd"
-
-	ParcelMassUnitGram     = "g"
-	ParcelMassUnitOunce    = "oz"
-	ParcelMassUnitPound    = "lb"
-	ParcelMassUnitKiloGram = "kg"
-)
-
 type ParcelInput struct {
 	Length       string       `json:"length"`
 	Width        string       `json:"width"`

@@ -13,10 +13,13 @@ const (
 	ObjectStateInvalid    = "INVALID"
 	ObjectStateIncomplete = "INCOMPLETE"
 
-	ObjectStatusWaiting = "WAITING"
-	ObjectStatusQueued  = "QUEUED"
-	ObjectStatusSuccess = "SUCCESS"
-	ObjectStatusError   = "ERROR"
+	ObjectStatusWaiting        = "WAITING"
+	ObjectStatusQueued         = "QUEUED"
+	ObjectStatusSuccess        = "SUCCESS"
+	ObjectStatusError          = "ERROR"
+	ObjectStatusRefunded       = "REFUNDED"
+	ObjectStatusRefundPending  = "REFUNDPENDING"
+	ObjectStatusRefundRejected = "REFUNDREJECTED"
 
 	InsuranceProviderFedEx  = "FEDEX"
 	InsuranceProviderUPS    = "UPS"
@@ -25,6 +28,18 @@ const (
 	CODPaymentMethodSecuredFunds = "SECURED_FUNDS"
 	CODPaymentMethodCash         = "CASH"
 	CODPaymentMethodAny          = "ANY"
+
+	DistanceUnitCentiMeter = "cm"
+	DistanceUnitInch       = "in"
+	DistanceUnitFoot       = "ft"
+	DistanceUnitMilliMeter = "mm"
+	DistanceUnitMeter      = "m"
+	DistanceUnitYard       = "yd"
+
+	MassUnitGram     = "g"
+	MassUnitOunce    = "oz"
+	MassUnitPound    = "lb"
+	MassUnitKiloGram = "kg"
 )
 
 type CommonOutputFields struct {

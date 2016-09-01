@@ -9,7 +9,7 @@ type TransactionInput struct {
 }
 
 // See https://goshippo.com/docs/reference#transactions
-type TransactionOutput struct {
+type Transaction struct {
 	TransactionInput
 	CommonOutputFields
 	ObjectStatus         string                `json:"object_status,omitempty"`

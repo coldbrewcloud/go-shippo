@@ -27,7 +27,7 @@ func main() {
 	purchaseShippingLabel(c, shipment)
 }
 
-func createShipment(c *client.Client) *models.ShipmentOutput {
+func createShipment(c *client.Client) *models.Shipment {
 	// create a sending address
 	addressFromInput := &models.AddressInput{
 		ObjectPurpose: models.ObjectPurposePurchase,
@@ -94,7 +94,7 @@ func createShipment(c *client.Client) *models.ShipmentOutput {
 	return shipment
 }
 
-func purchaseShippingLabel(c *client.Client, shipment *models.ShipmentOutput) {
+func purchaseShippingLabel(c *client.Client, shipment *models.Shipment) {
 	transactionInput := &models.TransactionInput{
 		Rate:          shipment.RatesList[len(shipment.RatesList)-1].ObjectID,
 		LabelFileType: models.LabelFileTypePDF,

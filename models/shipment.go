@@ -84,11 +84,11 @@ type ShipmentBilling struct {
 }
 
 // See https://goshippo.com/docs/reference#shipments
-type ShipmentOutput struct {
+type Shipment struct {
 	ShipmentInput
 	CommonOutputFields
 	ObjectStatus string           `json:"object_status"`
 	RatesURL     string           `json:"rates_url"`
-	RatesList    []*RateOutput    `json:"rates_list"`
+	RatesList    []*Rate          `json:"rates_list"`
 	Messages     []*OutputMessage `json:"messages"`
 }

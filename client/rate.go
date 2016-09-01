@@ -9,7 +9,7 @@ import (
 )
 
 // GetShippingRates gets rates for a shipping object.
-func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*models.RateOutput, error) {
+func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*models.Rate, error) {
 	if shipmentObjectID == "" {
 		return nil, errors.New("Empty shipment object ID")
 	}
@@ -17,9 +17,9 @@ func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*mod
 		return nil, errors.New("Empty currency code")
 	}
 
-	list := []*models.RateOutput{}
+	list := []*models.Rate{}
 	err := c.doList(http.MethodGet, "/shipments/"+shipmentObjectID+"/rates/"+currencyCode, nil, func(v json.RawMessage) error {
-		item := &models.RateOutput{}
+		item := &models.Rate{}
 		if err := json.Unmarshal(v, item); err != nil {
 			return err
 		}
@@ -31,21 +31,21 @@ func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*mod
 }
 
 // RetrieveRate retrieves an existing rate by object id.
-func (c *Client) RetrieveRate(objectID string) (*models.RateOutput, error) {
+func (c *Client) RetrieveRate(objectID string) (*models.Rate, error) {
 	if objectID == "" {
 		return nil, errors.New("Empty object ID")
 	}
 
-	output := &models.RateOutput{}
+	output := &models.Rate{}
 	err := c.do(http.MethodGet, "/rates/"+objectID, nil, output)
 	return output, err
 }
 
 // ListAllRates lists all the rate objects that have been previously obtained through GetShippingRates function.
-func (c *Client) ListAllRates() ([]*models.RateOutput, error) {
-	list := []*models.RateOutput{}
+func (c *Client) ListAllRates() ([]*models.Rate, error) {
+	list := []*models.Rate{}
 	err := c.doList(http.MethodGet, "/rates/", nil, func(v json.RawMessage) error {
-		item := &models.RateOutput{}
+		item := &models.Rate{}
 		if err := json.Unmarshal(v, item); err != nil {
 			return err
 		}

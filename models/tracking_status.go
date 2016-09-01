@@ -15,7 +15,7 @@ type TrackingStatusInput struct {
 }
 
 // See https://goshippo.com/docs/reference#tracks
-type TrackingStatusOutput struct {
+type TrackingStatus struct {
 	TrackingStatusInput
 	TrackingStatus  *TrackingStatusDict   `json:"tracking_status,omitempty"`
 	TrackingHistory []*TrackingStatusDict `json:"tracking_history,omitempty"`

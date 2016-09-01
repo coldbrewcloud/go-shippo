@@ -6,7 +6,7 @@ type RefundInput struct {
 }
 
 // See https://goshippo.com/docs/reference#refunds
-type RefundOutput struct {
+type Refund struct {
 	RefundInput
 	CommonOutputFields
 }

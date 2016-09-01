@@ -10,7 +10,7 @@ type CarrierAccountInput struct {
 }
 
 // See https://goshippo.com/docs/reference#carrier-accounts
-type CarrierAccountOutput struct {
+type CarrierAccount struct {
 	CarrierAccountInput
 	CommonOutputFields
 }

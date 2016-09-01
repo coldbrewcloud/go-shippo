@@ -17,7 +17,7 @@ import (
 // The Shippo API currently supports Scan-based returns for USPS, Fedex and UPS.
 // When the ReturnOf flag is set, Shippo API will automatically swap the address_from and address_to fields for label creation.
 // Please check the return service terms and condition for the carrier you intend to use.
-func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.ShipmentOutput, error) {
+func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.Shipment, error) {
 	if input == nil {
 		return nil, errors.New("nil input")
 	}
@@ -26,27 +26,27 @@ func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.ShipmentOu
 		input.SubmissionDate = time.Now()
 	}
 
-	output := &models.ShipmentOutput{}
+	output := &models.Shipment{}
 	err := c.do(http.MethodPost, "/shipments/", input, output)
 	return output, err
 }
 
 // RetrieveShipment retrieves an existing shipment by object id.
-func (c *Client) RetrieveShipment(objectID string) (*models.ShipmentOutput, error) {
+func (c *Client) RetrieveShipment(objectID string) (*models.Shipment, error) {
 	if objectID == "" {
 		return nil, errors.New("Empty object ID")
 	}
 
-	output := &models.ShipmentOutput{}
+	output := &models.Shipment{}
 	err := c.do(http.MethodGet, "/shipments/"+objectID, nil, output)
 	return output, err
 }
 
 // ListAllShipments lists all shipment objects.
-func (c *Client) ListAllShipments() ([]*models.ShipmentOutput, error) {
-	list := []*models.ShipmentOutput{}
+func (c *Client) ListAllShipments() ([]*models.Shipment, error) {
+	list := []*models.Shipment{}
 	err := c.doList(http.MethodGet, "/shipments/", nil, func(v json.RawMessage) error {
-		item := &models.ShipmentOutput{}
+		item := &models.Shipment{}
 		if err := json.Unmarshal(v, item); err != nil {
 			return err
 		}

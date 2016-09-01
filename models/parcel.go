@@ -26,7 +26,7 @@ type ParcelInsurance struct {
 }
 
 // See https://goshippo.com/docs/reference#parcels
-type ParcelOutput struct {
+type Parcel struct {
 	ParcelInput
 	CommonOutputFields
 }

@@ -39,7 +39,7 @@ type CustomsItemInput struct {
 }
 
 // See https://goshippo.com/docs/reference#customsitems
-type CustomsItemOutput struct {
+type CustomsItem struct {
 	CustomsItemInput
 	CommonOutputFields
 }
@@ -65,7 +65,7 @@ type CustomsDeclarationInput struct {
 }
 
 // See https://goshippo.com/docs/reference#customsdeclarations
-type CustomsDeclarationOutput struct {
+type CustomsDeclaration struct {
 	CustomsDeclarationInput
 	CommonOutputFields
 }

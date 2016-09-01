@@ -12,23 +12,23 @@ type BatchInput struct {
 }
 
 // See https://goshippo.com/docs/reference#batches
-type BatchOutput struct {
+type Batch struct {
 	//BatchInput // seems that output format is slightly different
 	CommonOutputFields
-	DefaultCarrierAccount    string                   `json:"default_carrier_account,omitempty"`
-	DefaultServiceLevelToken string                   `json:"default_servicelevel_token,omitempty"`
-	LabelFileType            string                   `json:"label_filetype,omitempty"`
-	Metadata                 string                   `json:"metadata,omitempty"`
-	BatchShipments           *BatchOutputShipmentList `json:"batch_shipments"`
-	LabelURL                 []string                 `json:"label_url"`
-	ObjectResults            *BatchObjectResults      `json:"object_results"`
+	DefaultCarrierAccount    string              `json:"default_carrier_account,omitempty"`
+	DefaultServiceLevelToken string              `json:"default_servicelevel_token,omitempty"`
+	LabelFileType            string              `json:"label_filetype,omitempty"`
+	Metadata                 string              `json:"metadata,omitempty"`
+	BatchShipments           *BatchShipmentList  `json:"batch_shipments"`
+	LabelURL                 []string            `json:"label_url"`
+	ObjectResults            *BatchObjectResults `json:"object_results"`
 }
 
-type BatchOutputShipmentList struct {
-	Count    int                    `json:"count"`
-	Next     string                 `json:"next,omitempty"`
-	Previous string                 `json:"previous,omitempty"`
-	Results  []*BatchShipmentOutput `json:"results"`
+type BatchShipmentList struct {
+	Count    int              `json:"count"`
+	Next     string           `json:"next,omitempty"`
+	Previous string           `json:"previous,omitempty"`
+	Results  []*BatchShipment `json:"results"`
 }
 
 type BatchObjectResults struct {
@@ -47,7 +47,7 @@ type BatchShipmentInput struct {
 }
 
 // See https://goshippo.com/docs/reference#batches-batchshipments
-type BatchShipmentOutput struct {
+type BatchShipment struct {
 	BatchShipmentInput
 	CommonOutputFields
 	Transaction string            `json:"transaction"`

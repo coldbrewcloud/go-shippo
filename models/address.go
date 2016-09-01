@@ -25,7 +25,7 @@ type AddressInput struct {
 }
 
 // See https://goshippo.com/docs/reference#addresses
-type AddressOutput struct {
+type Address struct {
 	AddressInput
 	CommonOutputFields
 	ObjectSource string           `json:"object_source"`

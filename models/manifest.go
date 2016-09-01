@@ -12,7 +12,7 @@ type ManifestInput struct {
 }
 
 // See https://goshippo.com/docs/reference#manifests
-type ManifestOutput struct {
+type Manifest struct {
 	ManifestInput
 	CommonOutputFields
 }

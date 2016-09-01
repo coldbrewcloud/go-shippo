@@ -82,6 +82,8 @@ type CommonOutputFields struct {
 type OutputMessage struct {
 	Code    string `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
+	Text    string `json:"text,omitempty"`
+	Source  string `json:"source,omitempty"`
 }
 
 type ListAPIOutput struct {

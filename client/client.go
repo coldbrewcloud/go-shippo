@@ -78,7 +78,7 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (*htt
 		if err != nil {
 			return nil, fmt.Errorf("Error marshaling body object: %s", err.Error())
 		}
-
+		//fmt.Printf("REQ: %s\n", data)
 		reqBody = bytes.NewBuffer(data)
 	}
 
@@ -111,6 +111,7 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) error {
 	if err != nil {
 		return fmt.Errorf("Error reading response body data: %s", err.Error())
 	}
+	//fmt.Printf("RES: %s\n", resData)
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		if output != nil && len(resData) > 0 {
 			if err := json.Unmarshal(resData, output); err != nil {

@@ -6,6 +6,23 @@ import (
 )
 
 const (
+	CarrierAustraliaPost = "australia_post"
+	CarrierCanadaPost    = "canada_post"
+	CarrierDeutschePost  = "deutsche_post"
+	CarrierDHLGermany    = "dhl_germany"
+	CarrierDHLeCommerce  = "dhl_ecommerce"
+	CarrierDHLExpress    = "dhl_express"
+	CarrierFedEx         = "fedex"
+	CarrierGLSGermany    = "gls_de"
+	CarrierGLSFrance     = "gls_fr"
+	CarrierLasership     = "lasership"
+	CarrierMondialRelay  = "mondial_relay"
+	CarrierNewgistics    = "newgistics"
+	CarrierOnTrac        = "ontrac"
+	CarrierPurolator     = "purolator"
+	CarrierUPS           = "ups"
+	CarrierUSPS          = "usps"
+
 	ObjectPurposeQuote    = "QUOTE"
 	ObjectPurposePurchase = "PURCHASE"
 

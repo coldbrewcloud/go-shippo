@@ -1,0 +1,3 @@
+package: github.com/d5/go-shippo
+import:
+- package: github.com/stretchr/testify

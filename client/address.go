@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateAddress creates a new address object.
 func (c *Client) CreateAddress(input *models.AddressInput) (*models.AddressOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.AddressOutput{}
 	err := c.do(http.MethodPost, "/addresses/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateAddress(input *models.AddressInput) (*models.AddressOutpu
 
 // RetrieveAddress retrieves an existing address by object id.
 func (c *Client) RetrieveAddress(objectID string) (*models.AddressOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.AddressOutput{}
 	err := c.do(http.MethodGet, "/addresses/"+objectID, nil, output)
 	return output, err

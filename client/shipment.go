@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"time"
 
@@ -17,6 +18,10 @@ import (
 // When the ReturnOf flag is set, Shippo API will automatically swap the address_from and address_to fields for label creation.
 // Please check the return service terms and condition for the carrier you intend to use.
 func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.ShipmentOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	if input.SubmissionDate.IsZero() {
 		input.SubmissionDate = time.Now()
 	}
@@ -28,6 +33,10 @@ func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.ShipmentOu
 
 // RetrieveShipment retrieves an existing shipment by object id.
 func (c *Client) RetrieveShipment(objectID string) (*models.ShipmentOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.ShipmentOutput{}
 	err := c.do(http.MethodGet, "/shipments/"+objectID, nil, output)
 	return output, err

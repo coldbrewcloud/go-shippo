@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateManifest creates a new manifest object.
 func (c *Client) CreateManifest(input *models.ManifestInput) (*models.ManifestOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.ManifestOutput{}
 	err := c.do(http.MethodPost, "/manifests/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateManifest(input *models.ManifestInput) (*models.ManifestOu
 
 // RetrieveManifest retrieves an existing manifest by object id.
 func (c *Client) RetrieveManifest(objectID string) (*models.ManifestOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.ManifestOutput{}
 	err := c.do(http.MethodGet, "/manifests/"+objectID, nil, output)
 	return output, err

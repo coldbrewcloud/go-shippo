@@ -1,6 +1,7 @@
 package client
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"strings"
@@ -12,6 +13,10 @@ import (
 // You can iterate through each "page" by specifying non-zero value to page parameter.
 // You can also filter based on BatchShipment status using objectResultsFilter parameter
 func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter string) (*models.BatchOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	url := "/batches/" + objectID
 	qs := []string{}
 	if page > 0 {
@@ -31,6 +36,13 @@ func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter s
 
 // AddBatchShipmentsToBatch adds batch shipment(s) to an existing Batch.
 func (c *Client) AddBatchShipmentsToBatch(objectID string, batchShipments []*models.BatchShipmentInput) (*models.BatchOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+	if batchShipments == nil {
+		return nil, errors.New("nil batch shipments")
+	}
+
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/add_shipments", &batchShipments, output)
 	return output, err
@@ -38,6 +50,13 @@ func (c *Client) AddBatchShipmentsToBatch(objectID string, batchShipments []*mod
 
 // RemoveBatchShipmentsFromBatch removes batch shipment(s) from an existing Batch.
 func (c *Client) RemoveBatchShipmentsFromBatch(objectID string, batchShipmentIDs []string) (*models.BatchOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+	if batchShipmentIDs == nil {
+		return nil, errors.New("nil batch shipment IDs")
+	}
+
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/remove_shipments", &batchShipmentIDs, output)
 	return output, err
@@ -48,6 +67,10 @@ func (c *Client) RemoveBatchShipmentsFromBatch(objectID string, batchShipmentIDs
 // When all the shipments are purchased, the ObjectStatus will change to PURCHASED
 // and you will receive a batch_purchased webhook indicating that the batch has been purchased.
 func (c *Client) PurchaseBatch(objectID string) (*models.BatchOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.BatchOutput{}
 	err := c.do(http.MethodPost, "/batches/"+objectID+"/purchase", nil, output)
 	return output, err

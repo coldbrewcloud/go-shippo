@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,13 @@ import (
 
 // GetShippingRates gets rates for a shipping object.
 func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*models.RateOutput, error) {
+	if shipmentObjectID == "" {
+		return nil, errors.New("Empty shipment object ID")
+	}
+	if currencyCode == "" {
+		return nil, errors.New("Empty currency code")
+	}
+
 	list := []*models.RateOutput{}
 	err := c.doList(http.MethodGet, "/shipments/"+shipmentObjectID+"/rates/"+currencyCode, nil, func(v json.RawMessage) error {
 		item := &models.RateOutput{}
@@ -24,6 +32,10 @@ func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*mod
 
 // RetrieveRate retrieves an existing rate by object id.
 func (c *Client) RetrieveRate(objectID string) (*models.RateOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.RateOutput{}
 	err := c.do(http.MethodGet, "/rates/"+objectID, nil, output)
 	return output, err

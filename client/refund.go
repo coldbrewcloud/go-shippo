@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateRefund creates a new refund object.
 func (c *Client) CreateRefund(input *models.RefundInput) (*models.RefundOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.RefundOutput{}
 	err := c.do(http.MethodPost, "/refunds/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateRefund(input *models.RefundInput) (*models.RefundOutput, 
 
 // RetrieveRefund retrieves an existing refund by object id.
 func (c *Client) RetrieveRefund(objectID string) (*models.RefundOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.RefundOutput{}
 	err := c.do(http.MethodGet, "/refunds/"+objectID, nil, output)
 	return output, err

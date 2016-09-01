@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/d5/go-shippo"
 	"github.com/d5/go-shippo/client"
 	"github.com/d5/go-shippo/models"
 )
@@ -17,7 +18,7 @@ func main() {
 	}
 
 	// create a Shippo Client instance
-	c := client.NewClient(privateToken)
+	c := shippo.NewClient(privateToken)
 
 	// create shipment
 	shipment := createShipment(c)

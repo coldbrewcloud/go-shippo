@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateCarrierAccount creates a new carrier account object.
 func (c *Client) CreateCarrierAccount(input *models.CarrierAccountInput) (*models.CarrierAccountOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.CarrierAccountOutput{}
 	err := c.do(http.MethodPost, "/carrier_accounts/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateCarrierAccount(input *models.CarrierAccountInput) (*model
 
 // RetrieveCarrierAccount retrieves an existing carrier account by object id.
 func (c *Client) RetrieveCarrierAccount(objectID string) (*models.CarrierAccountOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.CarrierAccountOutput{}
 	err := c.do(http.MethodGet, "/carrier_accounts/"+objectID, nil, output)
 	return output, err
@@ -39,6 +48,13 @@ func (c *Client) ListAllCarrierAccounts() ([]*models.CarrierAccountOutput, error
 // UpdateCarrierAccount updates an existing carrier account.
 // AccountID and Carrier cannot be updated because they form the unique identifier together.
 func (c *Client) UpdateCarrierAccount(objectID string, input *models.CarrierAccountInput) (*models.CarrierAccountOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.CarrierAccountOutput{}
 	err := c.do(http.MethodPut, "/carrier_accounts/"+objectID, input, output)
 	return output, err

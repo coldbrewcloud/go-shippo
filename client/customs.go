@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateCustomsItem creates a new customs item object.
 func (c *Client) CreateCustomsItem(input *models.CustomsItemInput) (*models.CustomsItemOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.CustomsItemOutput{}
 	err := c.do(http.MethodPost, "/customs/items/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateCustomsItem(input *models.CustomsItemInput) (*models.Cust
 
 // RetrieveCustomsItem retrieves an existing customs item by object id.
 func (c *Client) RetrieveCustomsItem(objectID string) (*models.CustomsItemOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.CustomsItemOutput{}
 	err := c.do(http.MethodGet, "/customs/items/"+objectID, nil, output)
 	return output, err
@@ -38,6 +47,10 @@ func (c *Client) ListAllCustomsItems() ([]*models.CustomsItemOutput, error) {
 
 // CreateCustomsDeclaration creates a new customs declaration object.
 func (c *Client) CreateCustomsDeclaration(input *models.CustomsDeclarationInput) (*models.CustomsDeclarationOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.CustomsDeclarationOutput{}
 	err := c.do(http.MethodPost, "/customs/declarations/", input, output)
 	return output, err
@@ -45,6 +58,10 @@ func (c *Client) CreateCustomsDeclaration(input *models.CustomsDeclarationInput)
 
 // RetrieveCustomsDeclaration retrieves an existing customs declaration by object id.
 func (c *Client) RetrieveCustomsDeclaration(objectID string) (*models.CustomsDeclarationOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.CustomsDeclarationOutput{}
 	err := c.do(http.MethodGet, "/customs/declarations/"+objectID, nil, output)
 	return output, err

@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // PurchaseShippingLabel creates a new transaction object and purchases the shipping label for the provided rate.
 func (c *Client) PurchaseShippingLabel(input *models.TransactionInput) (*models.TransactionOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.TransactionOutput{}
 	err := c.do(http.MethodPost, "/transactions/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) PurchaseShippingLabel(input *models.TransactionInput) (*models.
 
 // RetrieveTransaction retrieves an existing transaction by object id.
 func (c *Client) RetrieveTransaction(objectID string) (*models.TransactionOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.TransactionOutput{}
 	err := c.do(http.MethodGet, "/transactions/"+objectID, nil, output)
 	return output, err

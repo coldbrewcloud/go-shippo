@@ -2,6 +2,7 @@ package client
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/d5/go-shippo/models"
@@ -9,6 +10,10 @@ import (
 
 // CreateParcel creates a new parcel object.
 func (c *Client) CreateParcel(input *models.ParcelInput) (*models.ParcelOutput, error) {
+	if input == nil {
+		return nil, errors.New("nil input")
+	}
+
 	output := &models.ParcelOutput{}
 	err := c.do(http.MethodPost, "/parcels/", input, output)
 	return output, err
@@ -16,6 +21,10 @@ func (c *Client) CreateParcel(input *models.ParcelInput) (*models.ParcelOutput, 
 
 // RetrieveParcel retrieves an existing parcel by object id.
 func (c *Client) RetrieveParcel(objectID string) (*models.ParcelOutput, error) {
+	if objectID == "" {
+		return nil, errors.New("Empty object ID")
+	}
+
 	output := &models.ParcelOutput{}
 	err := c.do(http.MethodGet, "/parcels/"+objectID, nil, output)
 	return output, err

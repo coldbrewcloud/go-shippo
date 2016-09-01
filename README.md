@@ -128,3 +128,4 @@ To run:
 ```bash
 PRIVATE_TOKEN=<your_api_token> go run *.go
 ```
+See [more examples](https://github.com/d5/go-shippo/tree/master/_examples).

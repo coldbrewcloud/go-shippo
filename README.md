@@ -2,39 +2,100 @@
 
 Documentation: https://godoc.org/github.com/d5/go-shippo/client
 
-## Example
-_PLEASE NOTE: if you uncomment `purchaseShippingLabel()` line, Shippo's gonna **charge** you for real :)_
+## Examples
 ```go
 package main
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 
+	"github.com/d5/go-shippo"
 	"github.com/d5/go-shippo/client"
 	"github.com/d5/go-shippo/models"
 )
 
+var (
+	privateToken     = os.Getenv("PRIVATE_TOKEN")
+	upsUserName      = os.Getenv("UPS_USERNAME")
+	upsPassword      = os.Getenv("UPS_PASSWORD")
+	upsAccountNumber = os.Getenv("UPS_ACCOUNT_NUMBER")
+)
+
 func main() {
-	privateToken := os.Getenv("PRIVATE_TOKEN")
-	if privateToken == "" {
-		panic(errors.New("Please set $PRIVATE_TOKEN with your Shippo API private token."))
-	}
-
 	// create a Shippo Client instance
-	c := client.NewClient(privateToken)
+	c := shippo.NewClient(privateToken)
 
-	// create shipment
-	shipment := createShipment(c)
+	// create or update carrier account
+	carrierAccountObjectID := prepareCarrierAccount(c)
+
+	// create shipment using the carrier account
+	shipment := createShipmentUsingCarrierAccount(c, carrierAccountObjectID)
 
 	// purchase shipping label
-	// NOTE: Uncomment the following line if you want to test the actual purchase.
-	// purchaseShippingLabel(c, shipment)
+	purchaseShippingLabel(c, shipment)
 }
 
-func createShipment(c *client.Client) *models.ShipmentOutput {
+func prepareCarrierAccount(c *client.Client) string {
+	// list all registered carrier account
+	allCarrierAccounts, err := c.ListAllCarrierAccounts()
+	if err != nil {
+		panic(err)
+	}
+
+	// create UPS carrier account if not added
+	carrierAccountObjectID := ""
+	for _, ca := range allCarrierAccounts {
+		if ca.Carrier == models.CarrierUPS && ca.AccountID == upsUserName {
+			carrierAccountObjectID = ca.ObjectID
+			break
+		}
+	}
+	if carrierAccountObjectID == "" {
+		// create a new carrier account
+		input := &models.CarrierAccountInput{
+			Carrier:   models.CarrierUPS,
+			AccountID: upsUserName,
+			Parameters: map[string]interface{}{
+				"password":       upsPassword,
+				"account_number": upsAccountNumber,
+			},
+			Test:   true,
+			Active: true,
+		}
+		carrierAccount, err := c.CreateCarrierAccount(input)
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Printf("Carrier account registered: %s\n", dump(carrierAccount))
+	} else {
+		// update existing carrier account
+		input := &models.CarrierAccountInput{
+			Carrier:   models.CarrierUPS,
+			AccountID: upsUserName,
+			Parameters: map[string]interface{}{
+				"password":       upsPassword,
+				"account_number": upsAccountNumber,
+			},
+			Test:   true,
+			Active: true,
+		}
+		carrierAccount, err := c.UpdateCarrierAccount(carrierAccountObjectID, input)
+		if err != nil {
+			panic(err)
+		}
+
+		carrierAccountObjectID = carrierAccount.ObjectID
+
+		fmt.Printf("Carrier account updated: %s\n", dump(carrierAccount))
+	}
+
+	return carrierAccountObjectID
+}
+
+func createShipmentUsingCarrierAccount(c *client.Client, carrierAccountObjectID string) *models.Shipment {
 	// create a sending address
 	addressFromInput := &models.AddressInput{
 		ObjectPurpose: models.ObjectPurposePurchase,
@@ -85,11 +146,12 @@ func createShipment(c *client.Client) *models.ShipmentOutput {
 
 	// create a shipment
 	shipmentInput := &models.ShipmentInput{
-		ObjectPurpose: models.ObjectPurposePurchase,
-		AddressFrom:   addressFrom.ObjectID,
-		AddressTo:     addressTo.ObjectID,
-		Parcel:        parcel.ObjectID,
-		Async:         false,
+		ObjectPurpose:   models.ObjectPurposePurchase,
+		AddressFrom:     addressFrom.ObjectID,
+		AddressTo:       addressTo.ObjectID,
+		Parcel:          parcel.ObjectID,
+		CarrierAccounts: []string{carrierAccountObjectID},
+		Async:           false,
 	}
 	shipment, err := c.CreateShipment(shipmentInput)
 	if err != nil {
@@ -101,9 +163,9 @@ func createShipment(c *client.Client) *models.ShipmentOutput {
 	return shipment
 }
 
-func purchaseShippingLabel(c *client.Client, shipment *models.ShipmentOutput) {
+func purchaseShippingLabel(c *client.Client, shipment *models.Shipment) {
 	transactionInput := &models.TransactionInput{
-		Rate:          shipment.RatesList[len(shipment.RatesList)-1].ObjectID,
+		Rate:          shipment.RatesList[0].ObjectID,
 		LabelFileType: models.LabelFileTypePDF,
 		Async:         false,
 	}
@@ -123,9 +185,7 @@ func dump(v interface{}) string {
 
 	return string(data)
 }
+
 ```
-To run:
-```bash
-PRIVATE_TOKEN=<your_api_token> go run *.go
-```
+
 See [more examples](https://github.com/d5/go-shippo/tree/master/_examples).

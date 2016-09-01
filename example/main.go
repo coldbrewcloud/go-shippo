@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-
 	"os"
 
 	"github.com/d5/go-shippo/client"
@@ -11,7 +10,7 @@ import (
 )
 
 func main() {
-	client := client.NewClient(os.Getenv("PRIVATE_TOKEN"))
+	c := client.NewClient(os.Getenv("PRIVATE_TOKEN"))
 
 	addressInput := &models.AddressInput{
 		ObjectPurpose: "PURCHASE",
@@ -28,19 +27,19 @@ func main() {
 		Metadata:      "Customer ID 123456",
 	}
 
-	addressOutput, err := client.CreateAddress(addressInput)
+	addressOutput, err := c.CreateAddress(addressInput)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Address created: %s\n", dump(addressOutput))
 
-	retrievedAddress, err := client.RetrieveAddress(addressOutput.ObjectID)
+	retrievedAddress, err := c.RetrieveAddress(addressOutput.ObjectID)
 	if err != nil {
 		panic(err)
 	}
 	fmt.Printf("Address retrieved: %s\n", dump(retrievedAddress))
 
-	allAddresses, err := client.ListAllAddresses()
+	allAddresses, err := c.ListAllAddresses()
 	if err != nil {
 		panic(err)
 	}

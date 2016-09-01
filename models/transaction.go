@@ -1,12 +1,5 @@
 package models
 
-const (
-	TransactionLabelFileTypePNG    = "PNG"
-	TransactionLabelFileTypePDF    = "PDF"
-	TransactionLabelFileTypePDF4X6 = "PDF_4X6"
-	TransactionLabelFileTypeZPLII  = "ZPLII"
-)
-
 type TransactionInput struct {
 	Rate          string `json:"rate"`
 	Metadata      string `json:"metadata,omitempty"`

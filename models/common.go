@@ -13,13 +13,20 @@ const (
 	ObjectStateInvalid    = "INVALID"
 	ObjectStateIncomplete = "INCOMPLETE"
 
-	ObjectStatusWaiting        = "WAITING"
-	ObjectStatusQueued         = "QUEUED"
-	ObjectStatusSuccess        = "SUCCESS"
-	ObjectStatusError          = "ERROR"
-	ObjectStatusRefunded       = "REFUNDED"
-	ObjectStatusRefundPending  = "REFUNDPENDING"
-	ObjectStatusRefundRejected = "REFUNDREJECTED"
+	ObjectStatusWaiting           = "WAITING"
+	ObjectStatusQueued            = "QUEUED"
+	ObjectStatusSuccess           = "SUCCESS"
+	ObjectStatusError             = "ERROR"
+	ObjectStatusRefunded          = "REFUNDED"
+	ObjectStatusRefundPending     = "REFUNDPENDING"
+	ObjectStatusRefundRejected    = "REFUNDREJECTED"
+	ObjectStatusValidating        = "VALIDATING"
+	ObjectStatusValid             = "VALID"
+	ObjectStatusInvalid           = "INVALID"
+	ObjectStatusIncomplete        = "INCOMPLETE"
+	ObjectStatusPurchasing        = "PURCHASING"
+	ObjectStatusPurchased         = "PURCHASED"
+	ObjectStatusTransactionFailed = "TRANSACTION_FAILED"
 
 	InsuranceProviderFedEx  = "FEDEX"
 	InsuranceProviderUPS    = "UPS"
@@ -40,14 +47,19 @@ const (
 	MassUnitOunce    = "oz"
 	MassUnitPound    = "lb"
 	MassUnitKiloGram = "kg"
+
+	LabelFileTypePNG    = "PNG"
+	LabelFileTypePDF    = "PDF"
+	LabelFileTypePDF4X6 = "PDF_4X6"
+	LabelFileTypeZPLII  = "ZPLII"
 )
 
 type CommonOutputFields struct {
-	ObjectState   string    `json:"object_state"`
+	ObjectState   string    `json:"object_state,omitempty"`
 	ObjectCreated time.Time `json:"object_created"`
 	ObjectUpdated time.Time `json:"object_updated"`
-	ObjectID      string    `json:"object_id"`
-	ObjectOwner   string    `json:"object_owner"`
+	ObjectID      string    `json:"object_id,omitempty"`
+	ObjectOwner   string    `json:"object_owner,omitempty"`
 }
 
 type OutputMessage struct {

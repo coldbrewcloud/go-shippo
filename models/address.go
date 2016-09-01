@@ -26,6 +26,6 @@ type AddressInput struct {
 type AddressOutput struct {
 	AddressInput
 	CommonOutputFields
-	ObjectSource string          `json:"object_source"`
-	Messages     []OutputMessage `json:"messages"`
+	ObjectSource string           `json:"object_source"`
+	Messages     []*OutputMessage `json:"messages"`
 }

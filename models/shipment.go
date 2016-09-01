@@ -85,8 +85,8 @@ type ShipmentBilling struct {
 type ShipmentOutput struct {
 	ShipmentInput
 	CommonOutputFields
-	ObjectStatus string          `json:"object_status"`
-	RatesURL     string          `json:"rates_url"`
-	RatesList    []RateOutput    `json:"rates_list"`
-	Messages     []OutputMessage `json:"messages"`
+	ObjectStatus string           `json:"object_status"`
+	RatesURL     string           `json:"rates_url"`
+	RatesList    []*RateOutput    `json:"rates_list"`
+	Messages     []*OutputMessage `json:"messages"`
 }

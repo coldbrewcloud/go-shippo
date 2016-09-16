@@ -6,7 +6,10 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
+
+	"strings"
 
 	"github.com/d5/go-shippo/models"
 )
@@ -15,6 +18,7 @@ const shippoAPIBaseURL = "https://api.goshippo.com/v1"
 
 type Client struct {
 	privateToken string
+	logger       *log.Logger
 }
 
 type listOutputCallback func(v json.RawMessage) error
@@ -24,6 +28,14 @@ func NewClient(privateToken string) *Client {
 	return &Client{
 		privateToken: privateToken,
 	}
+}
+
+// SetTraceLogger sets a new trace logger and returns the old logger.
+// If logger is not nil, Client will output all internal messages to the logger.
+func (c *Client) SetTraceLogger(logger *log.Logger) *log.Logger {
+	oldLogger := c.logger
+	c.logger = logger
+	return oldLogger
 }
 
 func (c *Client) do(method, path string, input, output interface{}) error {
@@ -71,18 +83,49 @@ func (c *Client) doList(method, path string, input interface{}, outputCallback l
 	return nil
 }
 
-func (c *Client) createRequest(method, url string, bodyObject interface{}) (*http.Request, error) {
+func (c *Client) createRequest(method, url string, bodyObject interface{}) (req *http.Request, err error) {
+	var reqBodyDebug []byte
+
+	if c.logger != nil {
+		defer func() {
+			if err != nil {
+				c.logPrintf("Client.createRequest() error: %s", err.Error())
+				return
+			} else if req == nil {
+				c.logPrintf("Client.createRequest() req=nil, error=nil")
+				return
+			}
+
+			headers := []string{}
+			for hk, hva := range req.Header {
+				for _, hv := range hva {
+					headers = append(headers, fmt.Sprintf("%s=%s", hk, hv))
+				}
+			}
+
+			body := ""
+			if reqBodyDebug != nil {
+				body = string(reqBodyDebug)
+			}
+
+			c.logPrintf("Client.createRequest() HTTP request created: method=%q, url=%q, headers=%q, body=%q",
+				req.Method, req.URL.String(), strings.Join(headers, ","), body)
+		}()
+	}
+
 	var reqBody io.Reader
 	if bodyObject != nil {
 		data, err := json.Marshal(bodyObject)
 		if err != nil {
 			return nil, fmt.Errorf("Error marshaling body object: %s", err.Error())
 		}
-		//fmt.Printf("REQ: %s\n", data)
+
+		reqBodyDebug = data
+
 		reqBody = bytes.NewBuffer(data)
 	}
 
-	req, err := http.NewRequest(method, url, reqBody)
+	req, err = http.NewRequest(method, url, reqBody)
 	if err != nil {
 		return nil, fmt.Errorf("Error creating HTTP request: %s", err.Error())
 	}
@@ -98,7 +141,15 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (*htt
 	return req, nil
 }
 
-func (c *Client) executeRequest(req *http.Request, output interface{}) error {
+func (c *Client) executeRequest(req *http.Request, output interface{}) (err error) {
+	if c.logger != nil {
+		defer func() {
+			if err != nil {
+				c.logPrintf("Client.executeRequest() error: %s", err.Error())
+			}
+		}()
+	}
+
 	httpClient := http.Client{}
 
 	res, err := httpClient.Do(req)
@@ -111,7 +162,11 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) error {
 	if err != nil {
 		return fmt.Errorf("Error reading response body data: %s", err.Error())
 	}
-	//fmt.Printf("RES: %s\n", resData)
+
+	if c.logger != nil {
+		c.logPrintf("Client.executeRequest() response: status=%q, body=%q", res.Status, string(resData))
+	}
+
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		if output != nil && len(resData) > 0 {
 			if err := json.Unmarshal(resData, output); err != nil {
@@ -123,4 +178,10 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) error {
 	}
 
 	return fmt.Errorf("Error status code returned: [%s] %s", res.Status, string(resData))
+}
+
+func (c *Client) logPrintf(format string, args ...interface{}) {
+	if c.logger != nil {
+		c.logger.Printf(format, args...)
+	}
 }

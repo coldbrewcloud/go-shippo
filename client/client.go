@@ -8,9 +8,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-
 	"strings"
 
+	"github.com/d5/go-shippo/errors"
 	"github.com/d5/go-shippo/models"
 )
 
@@ -47,6 +47,9 @@ func (c *Client) do(method, path string, input, output interface{}) error {
 	}
 
 	if err := c.executeRequest(req, output); err != nil {
+		if aerr, ok := err.(*errors.APIError); ok {
+			return aerr
+		}
 		return fmt.Errorf("Error executing request: %s", err.Error())
 	}
 
@@ -64,6 +67,9 @@ func (c *Client) doList(method, path string, input interface{}, outputCallback l
 
 		listOutput := &models.ListAPIOutput{}
 		if err := c.executeRequest(req, listOutput); err != nil {
+			if aerr, ok := err.(*errors.APIError); ok {
+				return aerr
+			}
 			return fmt.Errorf("Error executing request: %s", err.Error())
 		}
 
@@ -177,7 +183,10 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) (err erro
 		return nil
 	}
 
-	return fmt.Errorf("Error status code returned: [%s] %s", res.Status, string(resData))
+	return &errors.APIError{
+		Status:       res.StatusCode,
+		ResponseBody: resData,
+	}
 }
 
 func (c *Client) logPrintf(format string, args ...interface{}) {

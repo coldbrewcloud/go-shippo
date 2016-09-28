@@ -10,4 +10,5 @@ type RefundInput struct {
 type Refund struct {
 	RefundInput
 	CommonOutputFields
+	ObjectStatus string `json:"object_status,omitempty"`
 }

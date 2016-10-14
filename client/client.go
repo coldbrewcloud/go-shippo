@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/d5/go-shippo/errors"
-	"github.com/d5/go-shippo/models"
+	"github.com/coldbrewcloud/go-shippo/errors"
+	"github.com/coldbrewcloud/go-shippo/models"
 )
 
 const shippoAPIBaseURL = "https://api.goshippo.com/v1"

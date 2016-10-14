@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/d5/go-shippo/models"
+	"github.com/coldbrewcloud/go-shippo/models"
 )
 
 // GetShippingRates gets rates for a shipping object.

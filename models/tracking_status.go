@@ -24,10 +24,10 @@ type TrackingStatus struct {
 }
 
 type TrackingStatusDict struct {
-	Status       string                  `json:"status,omitempty"`
-	StatusDetail string                  `json:"status_detail,omitempty"`
-	StatusDate   time.Time               `json:"status_date,omitempty"`
-	Location     *TrackingStatusLocation `json:"location,omitempty"`
+	Status        string                  `json:"status,omitempty"`
+	StatusDetails string                  `json:"status_details,omitempty"`
+	StatusDate    time.Time               `json:"status_date,omitempty"`
+	Location      *TrackingStatusLocation `json:"location,omitempty"`
 }
 
 type TrackingStatusLocation struct {

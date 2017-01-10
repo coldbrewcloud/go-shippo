@@ -17,7 +17,7 @@ func (c *Client) GetTrackingUpdate(carrier, trackingNumber string) (*models.Trac
 	}
 
 	output := &models.TrackingStatus{}
-	err := c.do(http.MethodGet, "/trakcs/"+carrier+"/"+trackingNumber, nil, output)
+	err := c.do(http.MethodGet, "/tracks/"+carrier+"/"+trackingNumber, nil, output)
 	return output, err
 }
 
@@ -33,6 +33,9 @@ func (c *Client) RegisterTrackingWebhook(carrier, trackingNumber string) (*model
 	}
 
 	output := &models.TrackingStatus{}
-	err := c.do(http.MethodPost, "/trakcs/"+carrier+"/"+trackingNumber, nil, output)
+	err := c.do(http.MethodPost, "/tracks/", &models.TrackingStatusInput{
+		Carrier:        carrier,
+		TrackingNumber: trackingNumber,
+	}, output)
 	return output, err
 }

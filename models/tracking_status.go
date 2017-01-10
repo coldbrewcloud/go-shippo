@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 const (
 	TrackingStatusStatusUnknown   = "UNKNOWN"
 	TrackingStatusStatusDelivered = "DELIVERED"
@@ -24,7 +26,7 @@ type TrackingStatus struct {
 type TrackingStatusDict struct {
 	Status       string                  `json:"status,omitempty"`
 	StatusDetail string                  `json:"status_detail,omitempty"`
-	StatusDate   string                  `json:"status_date,omitempty"`
+	StatusDate   time.Time               `json:"status_date,omitempty"`
 	Location     *TrackingStatusLocation `json:"location,omitempty"`
 }
 

@@ -1,5 +1,7 @@
 # Shippo API Golang Wrapper
 
+[![API Testing](https://img.shields.io/badge/API%20Test-RapidAPI-blue.svg)](https://rapidapi.com/package/Shippo/functions?utm_source=ShippoGithub&utm_medium=button&utm_content=Vender_GitHub)
+
 Documentation: https://godoc.org/github.com/coldbrewcloud/go-shippo/client
 
 ## Examples

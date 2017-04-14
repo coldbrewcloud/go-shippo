@@ -40,18 +40,3 @@ func (c *Client) RetrieveRate(objectID string) (*models.Rate, error) {
 	err := c.do(http.MethodGet, "/rates/"+objectID, nil, output)
 	return output, err
 }
-
-// ListAllRates lists all the rate objects that have been previously obtained through GetShippingRates function.
-func (c *Client) ListAllRates() ([]*models.Rate, error) {
-	list := []*models.Rate{}
-	err := c.doList(http.MethodGet, "/rates/", nil, func(v json.RawMessage) error {
-		item := &models.Rate{}
-		if err := json.Unmarshal(v, item); err != nil {
-			return err
-		}
-
-		list = append(list, item)
-		return nil
-	})
-	return list, err
-}

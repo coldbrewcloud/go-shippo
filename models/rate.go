@@ -11,12 +11,9 @@ type Rate struct {
 	Provider               string           `json:"provider"`
 	ProviderImage75        string           `json:"providerImage75"`
 	ProviderImage200       string           `json:"providerImage200"`
-	ServiceLevelName       string           `json:"servicelevel_name"`
-	ServiceLevelToken      string           `json:"servicelevel_token"` // https://goshippo.com/docs/reference#servicelevels
-	ServiceLevelTerms      string           `json:"servicelevel_terms"`
+	ServiceLevel           *ServiceLevel    `json:"serviceLevel"`
 	Days                   int              `json:"days"`
 	DurationTerms          string           `json:"duration_terms"`
-	Trackable              bool             `json:"trackable"`
 	Insurance              bool             `json:"insurance"`
 	InsuranceAmountLocal   string           `json:"insurance_amount_local"`
 	InsuranceCurrencyLocal string           `json:"insurance_currency_local"`
@@ -24,4 +21,10 @@ type Rate struct {
 	InsuranceCurrency      string           `json:"insurance_currency"`
 	CarrierAccount         string           `json:"carrier_account"`
 	Messages               []*OutputMessage `json:"messages"`
+}
+
+type ServiceLevel struct {
+	Name  string `json:"name"`
+	Token string `json:"token"` // https://goshippo.com/docs/reference#servicelevels
+	Terms string `json:"terms"`
 }

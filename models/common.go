@@ -23,27 +23,20 @@ const (
 	CarrierUPS           = "ups"
 	CarrierUSPS          = "usps"
 
-	ObjectPurposeQuote    = "QUOTE"
-	ObjectPurposePurchase = "PURCHASE"
-
-	ObjectStateValid      = "VALID"
-	ObjectStateInvalid    = "INVALID"
-	ObjectStateIncomplete = "INCOMPLETE"
-
-	ObjectStatusWaiting           = "WAITING"
-	ObjectStatusQueued            = "QUEUED"
-	ObjectStatusSuccess           = "SUCCESS"
-	ObjectStatusError             = "ERROR"
-	ObjectStatusRefunded          = "REFUNDED"
-	ObjectStatusRefundPending     = "REFUNDPENDING"
-	ObjectStatusRefundRejected    = "REFUNDREJECTED"
-	ObjectStatusValidating        = "VALIDATING"
-	ObjectStatusValid             = "VALID"
-	ObjectStatusInvalid           = "INVALID"
-	ObjectStatusIncomplete        = "INCOMPLETE"
-	ObjectStatusPurchasing        = "PURCHASING"
-	ObjectStatusPurchased         = "PURCHASED"
-	ObjectStatusTransactionFailed = "TRANSACTION_FAILED"
+	StatusWaiting           = "WAITING"
+	StatusQueued            = "QUEUED"
+	StatusSuccess           = "SUCCESS"
+	StatusError             = "ERROR"
+	StatusRefunded          = "REFUNDED"
+	StatusRefundPending     = "REFUNDPENDING"
+	StatusRefundRejected    = "REFUNDREJECTED"
+	StatusValidating        = "VALIDATING"
+	StatusValid             = "VALID"
+	StatusInvalid           = "INVALID"
+	StatusIncomplete        = "INCOMPLETE"
+	StatusPurchasing        = "PURCHASING"
+	StatusPurchased         = "PURCHASED"
+	StatusTransactionFailed = "TRANSACTION_FAILED"
 
 	InsuranceProviderFedEx  = "FEDEX"
 	InsuranceProviderUPS    = "UPS"
@@ -72,7 +65,6 @@ const (
 )
 
 type CommonOutputFields struct {
-	ObjectState   string    `json:"object_state,omitempty"`
 	ObjectCreated time.Time `json:"object_created"`
 	ObjectUpdated time.Time `json:"object_updated"`
 	ObjectID      string    `json:"object_id,omitempty"`

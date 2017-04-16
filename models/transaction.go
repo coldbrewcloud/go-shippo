@@ -2,7 +2,7 @@ package models
 
 // See https://goshippo.com/docs/reference#transactions
 type TransactionInput struct {
-	Rate          *Rate  `json:"rate"`
+	Rate          string `json:"rate"`
 	Metadata      string `json:"metadata,omitempty"`
 	LabelFileType string `json:"label_file_type"`
 	Async         bool   `json:"async"`

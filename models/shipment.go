@@ -41,7 +41,7 @@ const (
 type ShipmentInput struct {
 	AddressFrom        *Address       `json:"address_from"`
 	AddressTo          *Address       `json:"address_to"`
-	Parcels            []string       `json:"parcels"`
+	Parcels            []*Parcel      `json:"parcels"`
 	ShipmentDate       time.Time      `json:"shipment_date,omitempty"`
 	AddressReturn      *Address       `json:"address_return,omitempty"`
 	CustomsDeclaration string         `json:"customs_declaration,omitempty"`
@@ -86,7 +86,9 @@ type ShipmentBilling struct {
 type Shipment struct {
 	ShipmentInput
 	CommonOutputFields
-	Status   string           `json:"status"`
-	Rates    []*Rate          `json:"rates"`
-	Messages []*OutputMessage `json:"messages"`
+	Status        string           `json:"status"`
+	Rates         []*Rate          `json:"rates"`
+	Messages      []*OutputMessage `json:"messages"`
+	ShipmentExtra *ShipmentExtra   `json:"extra"`
+	Test          bool             `json:"test"`
 }

@@ -38,6 +38,7 @@ const (
 )
 
 // See https://goshippo.com/docs/reference#shipments
+// Must create address and parcel structs beforehand
 type ShipmentInput struct {
 	AddressFrom        string    `json:"address_from"`
 	AddressTo          string    `json:"address_to"`
@@ -47,8 +48,8 @@ type ShipmentInput struct {
 	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
 	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
 	Metadata           string    `json:"metadata,omitempty"`
-	Async              bool      `json:"async,omitempty"`
 	Extra              *Extra    `json:"extra,omitempty"`
+	Async              bool      `json:"async,omitempty"`
 }
 
 // Represents shipment response back from shippo
@@ -59,10 +60,9 @@ type ShipmentOutput struct {
 	ShipmentDate       time.Time `json:"shipment_date,omitempty"`
 	AddressReturn      *Address  `json:"address_return,omitempty"`
 	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
-	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
 	Metadata           string    `json:"metadata,omitempty"`
-	Async              bool      `json:"async,omitempty"`
 	Extra              *Extra    `json:"extra,omitempty"`
+	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
 }
 
 type Extra struct {
@@ -101,8 +101,8 @@ type Shipment struct {
 	ShipmentOutput
 	CommonOutputFields
 	Status   string           `json:"status"`
+	Extra    *Extra           `json:"extra"`
 	Rates    []*Rate          `json:"rates"`
 	Messages []*OutputMessage `json:"messages"`
-	Extra    *Extra           `json:"extra"`
 	Test     bool             `json:"test"`
 }

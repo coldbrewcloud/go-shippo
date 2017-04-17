@@ -39,19 +39,33 @@ const (
 
 // See https://goshippo.com/docs/reference#shipments
 type ShipmentInput struct {
-	AddressFrom        *Address       `json:"address_from"`
-	AddressTo          *Address       `json:"address_to"`
-	Parcels            []*Parcel      `json:"parcels"`
-	ShipmentDate       time.Time      `json:"shipment_date,omitempty"`
-	AddressReturn      *Address       `json:"address_return,omitempty"`
-	CustomsDeclaration string         `json:"customs_declaration,omitempty"`
-	CarrierAccounts    []string       `json:"carrier_accounts,omitempty"`
-	Metadata           string         `json:"metadata,omitempty"`
-	Async              bool           `json:"async"`
-	Extra              *ShipmentExtra `json:"extra,omitempty"`
+	AddressFrom        string    `json:"address_from"`
+	AddressTo          string    `json:"address_to"`
+	Parcels            []string  `json:"parcels"`
+	ShipmentDate       time.Time `json:"shipment_date,omitempty"`
+	AddressReturn      string    `json:"address_return,omitempty"`
+	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
+	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
+	Metadata           string    `json:"metadata,omitempty"`
+	Async              bool      `json:"async,omitempty"`
+	Extra              *Extra    `json:"extra,omitempty"`
 }
 
-type ShipmentExtra struct {
+// Represents shipment response back from shippo
+type ShipmentOutput struct {
+	AddressFrom        *Address  `json:"address_from"`
+	AddressTo          *Address  `json:"address_to"`
+	Parcels            []*Parcel `json:"parcels"`
+	ShipmentDate       time.Time `json:"shipment_date,omitempty"`
+	AddressReturn      *Address  `json:"address_return,omitempty"`
+	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
+	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
+	Metadata           string    `json:"metadata,omitempty"`
+	Async              bool      `json:"async,omitempty"`
+	Extra              *Extra    `json:"extra,omitempty"`
+}
+
+type Extra struct {
 	SignatureConfirmation   string           `json:"signature_confirmation,omitempty"`
 	SaturdayDelivery        bool             `json:"saturday_delivery"`
 	Insurance               *Insurance       `json:"insurance"`
@@ -84,11 +98,11 @@ type ShipmentBilling struct {
 
 // See https://goshippo.com/docs/reference#shipments
 type Shipment struct {
-	ShipmentInput
+	ShipmentOutput
 	CommonOutputFields
-	Status        string           `json:"status"`
-	Rates         []*Rate          `json:"rates"`
-	Messages      []*OutputMessage `json:"messages"`
-	ShipmentExtra *ShipmentExtra   `json:"extra"`
-	Test          bool             `json:"test"`
+	Status   string           `json:"status"`
+	Rates    []*Rate          `json:"rates"`
+	Messages []*OutputMessage `json:"messages"`
+	Extra    *Extra           `json:"extra"`
+	Test     bool             `json:"test"`
 }

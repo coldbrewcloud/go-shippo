@@ -49,7 +49,7 @@ type ShipmentInput struct {
 	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
 	Metadata           string    `json:"metadata,omitempty"`
 	Extra              *Extra    `json:"extra,omitempty"`
-	Async              bool      `json:"async,omitempty"`
+	Async              bool      `json:"async"`
 }
 
 // Represents shipment response back from shippo

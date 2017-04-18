@@ -66,7 +66,6 @@ const (
 
 type CommonOutputFields struct {
 	ObjectCreated time.Time `json:"object_created"`
-	ObjectUpdated time.Time `json:"object_updated"`
 	ObjectID      string    `json:"object_id,omitempty"`
 	ObjectOwner   string    `json:"object_owner,omitempty"`
 }

@@ -7,8 +7,8 @@ import (
 	"os"
 
 	"github.com/yuderekyu/go-shippo"
-	"github.com/yuderekyu/go-shippo/client"
-	"github.com/yuderekyu/go-shippo/models"
+	"github.com/coldbrewcloud/go-shippo/client"
+	"github.com/coldbrewcloud/go-shippo/models"
 )
 
 func main() {

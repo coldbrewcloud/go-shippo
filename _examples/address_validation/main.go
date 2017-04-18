@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/yuderekyu/go-shippo"
-	"github.com/yuderekyu/go-shippo/models"
+	"github.com/coldbrewcloud/go-shippo/models"
 )
 
 var (

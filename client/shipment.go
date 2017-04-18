@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/yuderekyu/go-shippo/models"
+	"github.com/coldbrewcloud/go-shippo/models"
 )
 
 // CreateShipment creates a new shipment object.

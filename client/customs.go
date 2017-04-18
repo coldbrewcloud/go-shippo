@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/yuderekyu/go-shippo/models"
 )
 
 // CreateCustomsItem creates a new customs item object.

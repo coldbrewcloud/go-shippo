@@ -28,11 +28,11 @@ type Address struct {
 	IsComplete bool `json:"is_complete"`
 	AddressInput
 	CommonOutputFields
-	ValidateResults *ValidateResults `json:"messages"`
+	ValidationResults *ValidationResults `json:"validation_results"`
 }
 
 // See https://goshippo.com/docs/reference#addresses
-type ValidateResults struct {
+type ValidationResults struct {
 	IsValid  bool             `json:"is_valid"`
 	Messages []*OutputMessage `json:"messages`
 }

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/yuderekyu/go-shippo"
+	"github.com/coldbrewcloud/go-shippo"
 	"github.com/coldbrewcloud/go-shippo/models"
 )
 

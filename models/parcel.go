@@ -14,8 +14,10 @@ type ParcelInput struct {
 }
 
 type ParcelExtra struct {
-	COD       *COD             `json:"COD"`
-	Insurance *ParcelInsurance `json:"insurance"`
+	COD        *COD             `json:"COD"`
+	Insurance  *ParcelInsurance `json:"insurance"`
+	Reference1 string           `json:"reference_1,omitempty"`
+	Reference2 string           `json:"reference_2,omitempty"`
 }
 
 type ParcelInsurance struct {

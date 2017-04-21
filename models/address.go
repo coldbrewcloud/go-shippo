@@ -8,7 +8,6 @@ const (
 
 // See https://goshippo.com/docs/reference#addresses
 type AddressInput struct {
-	ObjectPurpose string `json:"object_purpose"`
 	Name          string `json:"name,omitempty"`
 	Company       string `json:"company,omitempty"`
 	Street1       string `json:"street1,omitempty"`
@@ -26,8 +25,14 @@ type AddressInput struct {
 
 // See https://goshippo.com/docs/reference#addresses
 type Address struct {
+	IsComplete bool `json:"is_complete"`
 	AddressInput
 	CommonOutputFields
-	ObjectSource string           `json:"object_source"`
-	Messages     []*OutputMessage `json:"messages"`
+	ValidationResults *ValidationResults `json:"validation_results"`
+}
+
+// See https://goshippo.com/docs/reference#addresses
+type ValidationResults struct {
+	IsValid  bool             `json:"is_valid"`
+	Messages []*OutputMessage `json:"messages`
 }

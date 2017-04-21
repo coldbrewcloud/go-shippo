@@ -22,10 +22,9 @@ func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.Shipment, 
 		return nil, errors.New("nil input")
 	}
 
-	if input.SubmissionDate.IsZero() {
-		input.SubmissionDate = time.Now()
+	if input.ShipmentDate.IsZero() {
+		input.ShipmentDate = time.Now()
 	}
-
 	output := &models.Shipment{}
 	err := c.do(http.MethodPost, "/shipments/", input, output)
 	return output, err

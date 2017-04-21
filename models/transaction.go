@@ -13,7 +13,7 @@ type Transaction struct {
 	TransactionInput
 	CommonOutputFields
 	ObjectStatus         string                `json:"object_status,omitempty"`
-	WasTest              bool                  `json:"was_test"`
+	Test                 bool                  `json:"test"`
 	TrackingNumber       string                `json:"tracking_number,omitempty"`
 	TrackingStatus       *TrackingStatusDict   `json:"tracking_status,omitempty"`
 	TrackingHistory      []*TrackingStatusDict `json:"tracking_history,omitempty"`

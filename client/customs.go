@@ -51,6 +51,12 @@ func (c *Client) CreateCustomsDeclaration(input *models.CustomsDeclarationInput)
 		return nil, errors.New("nil input")
 	}
 
+	switch input.Items.(type) {
+	case []string, []*models.CustomsItemInput, nil:
+	default:
+		return nil, errors.New("invalid items data type")
+	}
+
 	output := &models.CustomsDeclaration{}
 	err := c.do(http.MethodPost, "/customs/declarations/", input, output)
 	return output, err

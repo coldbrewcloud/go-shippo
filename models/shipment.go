@@ -38,55 +38,47 @@ const (
 )
 
 // See https://goshippo.com/docs/reference#shipments
-// Must create address and parcel structs beforehand
 type ShipmentInput struct {
-	AddressFrom        string    `json:"address_from"`
-	AddressTo          string    `json:"address_to"`
-	Parcels            []string  `json:"parcels"`
-	ShipmentDate       time.Time `json:"shipment_date,omitempty"`
-	AddressReturn      string    `json:"address_return,omitempty"`
-	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
-	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
-	Metadata           string    `json:"metadata,omitempty"`
-	Extra              *Extra    `json:"extra,omitempty"`
-	Async              bool      `json:"async"`
+	AddressFrom        interface{}    `json:"address_from"`                  // string or *AddressInput
+	AddressTo          interface{}    `json:"address_to"`                    // string or *AddressInput
+	Parcels            interface{}    `json:"parcels"`                       // string, []string, *ParcelInput, or []*ParcelInput
+	AddressReturn      interface{}    `json:"address_return,omitempty"`      // string or *AddressInput
+	CustomsDeclaration interface{}    `json:"customs_declaration,omitempty"` // string or *CustomsDeclarationInput
+	ShipmentDate       time.Time      `json:"shipment_date,omitempty"`
+	CarrierAccounts    []string       `json:"carrier_accounts,omitempty"`
+	Metadata           string         `json:"metadata,omitempty"`
+	Extra              *ShipmentExtra `json:"extra,omitempty"`
+	Async              bool           `json:"async"`
 }
 
-// Represents shipment response back from shippo
-type ShipmentOutput struct {
-	AddressFrom        *Address  `json:"address_from"`
-	AddressTo          *Address  `json:"address_to"`
-	Parcels            []*Parcel `json:"parcels"`
-	ShipmentDate       time.Time `json:"shipment_date,omitempty"`
-	AddressReturn      *Address  `json:"address_return,omitempty"`
-	CustomsDeclaration string    `json:"customs_declaration,omitempty"`
-	Metadata           string    `json:"metadata,omitempty"`
-	Extra              *Extra    `json:"extra,omitempty"`
-	CarrierAccounts    []string  `json:"carrier_accounts,omitempty"`
+type ShipmentExtra struct {
+	SignatureConfirmation   string             `json:"signature_confirmation,omitempty"`
+	SaturdayDelivery        bool               `json:"saturday_delivery"`
+	BypassAddressValidation bool               `json:"bypass_address_validation"`
+	RequestRetailRates      bool               `json:"request_retail_rates"`
+	CustomerBranch          string             `json:"customer_branch,omitempty"`
+	Billing                 *ShipmentBilling   `json:"billing,omitempty"`
+	COD                     *ShipmentCOD       `json:"COD,omitempty"`
+	Insurance               *ShipmentInsurance `json:"insurance,omitempty"`
+	USPSSortType            string             `json:"usps_sort_type,omitempty"`
+	USPSEntryFacility       string             `json:"usps_entry_facility,omitempty"`
+	DangerousGoodsCode      string             `json:"dangerous_goods_code,omitempty"`
+	IsReturn                bool               `json:"is_return,omitempty"`
+	Reference1              string             `json:"reference_1,omitempty"`
+	Reference2              string             `json:"reference_2,omitempty"`
 }
 
-type Extra struct {
-	SignatureConfirmation   string           `json:"signature_confirmation,omitempty"`
-	SaturdayDelivery        bool             `json:"saturday_delivery"`
-	Insurance               *Insurance       `json:"insurance"`
-	BypassAddressValidation bool             `json:"bypass_address_validation"`
-	UseManifests            bool             `json:"use_manifests"`
-	RequestRetailRates      bool             `json:"request_retail_rates"`
-	Billing                 *ShipmentBilling `json:"billing,omitempty"`
-	COD                     *COD             `json:"COD,omitempty"`
-	USPSSortType            string           `json:"usps_sort_type,omitempty"`
-	USPSEntryFacility       string           `json:"usps_entry_facility,omitempty"`
-	DangerousGoodsCode      string           `json:"dangerous_goods_code,omitempty"`
-	IsReturn                bool             `json:"is_return,omitempty"`
-	Reference1              string           `json:"reference_1,omitempty"`
-	Reference2              string           `json:"reference_2,omitempty"`
+type ShipmentCOD struct {
+	Amount        string `json:"amount"`
+	Currency      string `json:"currency"`
+	PaymentMethod string `json:"payment_method"`
 }
 
-type Insurance struct {
-	Amount   string `json:"amount,omitempty"`
-	Currency string `json:"currency,omitempty"`
-	Content  string `json:"content,omitempty"`
-	Provider string `json:"provider,omitempty"`
+type ShipmentInsurance struct {
+	Amount   string `json:"amount"`
+	Currency string `json:"currency"`
+	Provider string `json:"provider"`
+	Content  string `json:"content"`
 }
 
 type ShipmentBilling struct {
@@ -98,11 +90,14 @@ type ShipmentBilling struct {
 
 // See https://goshippo.com/docs/reference#shipments
 type Shipment struct {
-	ShipmentOutput
 	CommonOutputFields
-	Status   string           `json:"status"`
-	Extra    *Extra           `json:"extra"`
-	Rates    []*Rate          `json:"rates"`
-	Messages []*OutputMessage `json:"messages"`
-	Test     bool             `json:"test"`
+	Status             string              `json:"status,omitempty"`
+	AddressFrom        *Address            `json:"address_from,omitempty"`
+	AddressTo          *Address            `json:"address_to,omitempty"`
+	Parcels            []*Parcel           `json:"parcels,omitempty"`
+	AddressReturn      *Address            `json:"address_return,omitempty"`
+	CustomsDeclaration *CustomsDeclaration `json:"customs_declaration,omitempty"`
+	Rates              []*Rate             `json:"rates,omitempty"`
+	Messages           []*OutputMessage    `json:"messages,omitempty"`
+	Test               bool                `json:"test,omitempty"`
 }

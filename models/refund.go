@@ -11,4 +11,5 @@ type Refund struct {
 	RefundInput
 	CommonOutputFields
 	Status string `json:"status,omitempty"`
+	Test   bool   `json:"test"`
 }

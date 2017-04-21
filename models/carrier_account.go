@@ -5,7 +5,6 @@ type CarrierAccountInput struct {
 	Carrier    string                 `json:"carrier"`
 	AccountID  string                 `json:"account_id"`
 	Parameters map[string]interface{} `json:"parameters"`
-	Test       bool                   `json:"test"`
 	Active     bool                   `json:"active"`
 }
 
@@ -13,4 +12,5 @@ type CarrierAccountInput struct {
 type CarrierAccount struct {
 	CarrierAccountInput
 	CommonOutputFields
+	Test bool `json:"test"`
 }

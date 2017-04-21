@@ -4,10 +4,11 @@ import "time"
 
 // See https://goshippo.com/docs/reference#manifests
 type ManifestInput struct {
-	CarrierAccount string    `json:"carrier_account"`
-	ShipmentDate   time.Time `json:"shipment_date"`
-	AddressFrom    string    `json:"address_from"`
-	Transactions   []string  `json:"transactions"`
+	CarrierAccount string    `json:"carrier_account,omitempty"`
+	ShipmentDate   time.Time `json:"shipment_date,omitempty"`
+	AddressFrom    string    `json:"address_from,omitempty"`
+	Transactions   []string  `json:"transactions,omitempty"`
+	Documents      []string  `json:"documents,omitempty"`
 	Async          bool      `json:"async"`
 }
 
@@ -15,4 +16,5 @@ type ManifestInput struct {
 type Manifest struct {
 	ManifestInput
 	CommonOutputFields
+	State string `json:"state,omitempty"`
 }

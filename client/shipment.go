@@ -25,6 +25,37 @@ func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.Shipment, 
 	if input.ShipmentDate.IsZero() {
 		input.ShipmentDate = time.Now()
 	}
+
+	switch input.AddressFrom.(type) {
+	case string, *models.AddressInput, nil:
+	default:
+		return nil, errors.New("invalid address_from data type")
+	}
+
+	switch input.AddressTo.(type) {
+	case string, *models.AddressInput, nil:
+	default:
+		return nil, errors.New("invalid address_to data type")
+	}
+
+	switch input.AddressReturn.(type) {
+	case string, *models.AddressInput, nil:
+	default:
+		return nil, errors.New("invalid address_return data type")
+	}
+
+	switch input.Parcels.(type) {
+	case string, *models.ParcelInput, []string, []*models.ParcelInput, nil:
+	default:
+		return nil, errors.New("invalid parcels data type")
+	}
+
+	switch input.CustomsDeclaration.(type) {
+	case string, *models.CustomsDeclarationInput, nil:
+	default:
+		return nil, errors.New("invalid customs_declaration data type")
+	}
+
 	output := &models.Shipment{}
 	err := c.do(http.MethodPost, "/shipments/", input, output)
 	return output, err

@@ -55,7 +55,6 @@ func prepareCarrierAccount(c *client.Client) string {
 				"password":       upsPassword,
 				"account_number": upsAccountNumber,
 			},
-			Test:   true,
 			Active: true,
 		}
 		carrierAccount, err := c.CreateCarrierAccount(input)
@@ -75,7 +74,6 @@ func prepareCarrierAccount(c *client.Client) string {
 				"password":       upsPassword,
 				"account_number": upsAccountNumber,
 			},
-			Test:   true,
 			Active: true,
 		}
 		carrierAccount, err := c.UpdateCarrierAccount(carrierAccountObjectID, input)

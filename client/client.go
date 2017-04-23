@@ -14,19 +14,28 @@ import (
 	"github.com/coldbrewcloud/go-shippo/models"
 )
 
-const shippoAPIBaseURL = "https://api.goshippo.com/v1"
+const (
+	shippoAPIBaseURL        = "https://api.goshippo.com/v1"
+	defaultShippoAPIVersion = "2017-03-29"
+)
 
 type Client struct {
 	privateToken string
+	apiVersion   string
 	logger       *log.Logger
 }
 
 type listOutputCallback func(v json.RawMessage) error
 
 // NewClient creates a new Shippo API client instance.
-func NewClient(privateToken string) *Client {
+func NewClient(privateToken, apiVersion string) *Client {
+	if apiVersion == "" {
+		apiVersion = defaultShippoAPIVersion
+	}
+
 	return &Client{
 		privateToken: privateToken,
+		apiVersion:   apiVersion,
 	}
 }
 
@@ -139,6 +148,7 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (req 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Authorization", "ShippoToken "+c.privateToken)
+	req.Header.Set("Shippo-API-Version", c.apiVersion)
 
 	// no keep-alive
 	req.Header.Set("Connection", "close")

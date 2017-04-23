@@ -16,7 +16,7 @@ type TransactionInput struct {
 type Transaction struct {
 	TransactionInput
 	CommonOutputFields
-	ObjectStatus         string                `json:"object_status,omitempty"`
+	ObjectState          string                `json:"object_state,omitempty"`
 	Status               string                `json:"status,omitempty"`
 	Test                 bool                  `json:"test"`
 	TrackingNumber       string                `json:"tracking_number,omitempty"`

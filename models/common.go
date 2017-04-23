@@ -23,6 +23,9 @@ const (
 	CarrierUPS           = "ups"
 	CarrierUSPS          = "usps"
 
+	ObjectStateValid   = "VALID"
+	ObjectStateInvalid = "INVALID"
+
 	StatusWaiting           = "WAITING"
 	StatusQueued            = "QUEUED"
 	StatusSuccess           = "SUCCESS"
@@ -30,12 +33,13 @@ const (
 	StatusRefunded          = "REFUNDED"
 	StatusRefundPending     = "REFUNDPENDING"
 	StatusRefundRejected    = "REFUNDREJECTED"
+	StatusPending           = "PENDING"
 	StatusValidating        = "VALIDATING"
 	StatusValid             = "VALID"
 	StatusInvalid           = "INVALID"
-	StatusIncomplete        = "INCOMPLETE"
 	StatusPurchasing        = "PURCHASING"
 	StatusPurchased         = "PURCHASED"
+	StatusIncomplete        = "INCOMPLETE"
 	StatusTransactionFailed = "TRANSACTION_FAILED"
 
 	InsuranceProviderFedEx  = "FEDEX"

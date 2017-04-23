@@ -40,30 +40,35 @@ type CustomsItemInput struct {
 type CustomsItem struct {
 	CustomsItemInput
 	CommonOutputFields
+	ObjectState string `json:"object_state,omitempty"`
+	Test        bool   `json:"test"`
 }
 
 // See https://goshippo.com/docs/reference#customsdeclarations
 type CustomsDeclarationInput struct {
-	CertifySigner       string   `json:"certify_signer"`
-	Certify             bool     `json:"certify"`
-	Items               []string `json:"items"`
-	NonDeliveryOption   string   `json:"non_delivery_option"`
-	ContentsType        string   `json:"contents_type"`
-	ContentsExplanation string   `json:"contents_explanation,omitempty"`
-	ExporterReference   string   `json:"exporter_reference,omitempty"`
-	importerReference   string   `json:"importer_reference,omitempty"`
-	Invoice             string   `json:"invoice,omitempty"`
-	License             string   `json:"license,omitempty"`
-	Certificate         string   `json:"certificate,omitempty"`
-	notes               string   `json:"notes,omitempty"`
-	EEL_PFC             string   `json:"eel_pfc,omitempty"`
-	AES_ITN             string   `json:"aes_itn,omitempty"`
-	Incoterm            string   `json:"incoterm,omitempty"`
-	Metadata            string   `json:"metadata,omitempty"`
+	CertifySigner       string      `json:"certify_signer"`
+	Certify             bool        `json:"certify"`
+	Items               interface{} `json:"items"` // []string or []*CustomsItemInput
+	NonDeliveryOption   string      `json:"non_delivery_option"`
+	ContentsType        string      `json:"contents_type"`
+	ContentsExplanation string      `json:"contents_explanation,omitempty"`
+	ExporterReference   string      `json:"exporter_reference,omitempty"`
+	importerReference   string      `json:"importer_reference,omitempty"`
+	Invoice             string      `json:"invoice,omitempty"`
+	License             string      `json:"license,omitempty"`
+	Certificate         string      `json:"certificate,omitempty"`
+	Notes               string      `json:"notes,omitempty"`
+	EEL_PFC             string      `json:"eel_pfc,omitempty"`
+	AES_ITN             string      `json:"aes_itn,omitempty"`
+	Incoterm            string      `json:"incoterm,omitempty"`
+	Metadata            string      `json:"metadata,omitempty"`
+	Disclaimer          string      `json:"disclaimer,omitempty"`
 }
 
 // See https://goshippo.com/docs/reference#customsdeclarations
 type CustomsDeclaration struct {
 	CustomsDeclarationInput
 	CommonOutputFields
+	ObjectState string `json:"object_state,omitempty"`
+	Test        bool   `json:"test"`
 }

@@ -14,13 +14,18 @@ const (
 type TrackingStatusInput struct {
 	Carrier        string `json:"carrier"`
 	TrackingNumber string `json:"tracking_number"`
+	Metadata       string `json:"metadata,omitempty"`
 }
 
 // See https://goshippo.com/docs/reference#tracks
 type TrackingStatus struct {
 	TrackingStatusInput
-	TrackingStatus  *TrackingStatusDict   `json:"tracking_status,omitempty"`
-	TrackingHistory []*TrackingStatusDict `json:"tracking_history,omitempty"`
+	AddressFrom     *TrackingStatusLocation `json:"address_from,omitempty"`
+	AddressTo       *TrackingStatusLocation `json:"address_from,omitempty"`
+	ETA             time.Time               `json:"eta"`
+	ServiceLevel    *ServiceLevel           `json:"servicelevel,omitempty"`
+	TrackingStatus  *TrackingStatusDict     `json:"tracking_status,omitempty"`
+	TrackingHistory []*TrackingStatusDict   `json:"tracking_history,omitempty"`
 }
 
 type TrackingStatusDict struct {

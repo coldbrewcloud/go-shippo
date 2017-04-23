@@ -9,15 +9,21 @@ type ParcelInput struct {
 	Weight       string       `json:"weight"`
 	MassUnit     string       `json:"mass_unit"`
 	Template     string       `json:"template,omitempty"` // https://goshippo.com/docs/reference#parceltemplates
-	Metadata     string       `json:"metadata,omitempty"`
 	Extra        *ParcelExtra `json:"extra,omitempty"`
+	Metadata     string       `json:"metadata,omitempty"`
 }
 
 type ParcelExtra struct {
-	COD        *COD             `json:"COD"`
-	Insurance  *ParcelInsurance `json:"insurance"`
+	COD        *ParcelCOD       `json:"COD,omitempty"`
+	Insurance  *ParcelInsurance `json:"insurance,omitempty"`
 	Reference1 string           `json:"reference_1,omitempty"`
 	Reference2 string           `json:"reference_2,omitempty"`
+}
+
+type ParcelCOD struct {
+	Amount        string `json:"amount"`
+	Currency      string `json:"currency"`
+	PaymentMethod string `json:"payment_method"`
 }
 
 type ParcelInsurance struct {
@@ -31,4 +37,6 @@ type ParcelInsurance struct {
 type Parcel struct {
 	ParcelInput
 	CommonOutputFields
+	ObjectState string `json:"object_state,omitempty"`
+	Test        bool   `json:"test"`
 }

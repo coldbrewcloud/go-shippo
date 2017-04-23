@@ -23,6 +23,9 @@ const (
 	CarrierUPS           = "ups"
 	CarrierUSPS          = "usps"
 
+	ObjectStateValid   = "VALID"
+	ObjectStateInvalid = "INVALID"
+
 	StatusWaiting           = "WAITING"
 	StatusQueued            = "QUEUED"
 	StatusSuccess           = "SUCCESS"
@@ -30,12 +33,13 @@ const (
 	StatusRefunded          = "REFUNDED"
 	StatusRefundPending     = "REFUNDPENDING"
 	StatusRefundRejected    = "REFUNDREJECTED"
+	StatusPending           = "PENDING"
 	StatusValidating        = "VALIDATING"
 	StatusValid             = "VALID"
 	StatusInvalid           = "INVALID"
-	StatusIncomplete        = "INCOMPLETE"
 	StatusPurchasing        = "PURCHASING"
 	StatusPurchased         = "PURCHASED"
+	StatusIncomplete        = "INCOMPLETE"
 	StatusTransactionFailed = "TRANSACTION_FAILED"
 
 	InsuranceProviderFedEx  = "FEDEX"
@@ -65,7 +69,8 @@ const (
 )
 
 type CommonOutputFields struct {
-	ObjectCreated time.Time `json:"object_created"`
+	ObjectCreated time.Time `json:"object_created,omitempty"`
+	ObjectUpdated time.Time `json:"object_updated,omitempty"`
 	ObjectID      string    `json:"object_id,omitempty"`
 	ObjectOwner   string    `json:"object_owner,omitempty"`
 }
@@ -82,10 +87,4 @@ type ListAPIOutput struct {
 	NextPageURL     *string           `json:"next"`
 	PreviousPageURL *string           `json:"previous"`
 	Results         []json.RawMessage `json:"results"`
-}
-
-type COD struct {
-	Amount        string `json:"amount"`
-	Currency      string `json:"currency"`
-	PaymentMethod string `json:"payment_method"`
 }

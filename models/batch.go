@@ -15,6 +15,7 @@ type BatchInput struct {
 type Batch struct {
 	//BatchInput // seems that output format is slightly different
 	CommonOutputFields
+	Status                   string              `json:"status,omitempty"`
 	DefaultCarrierAccount    string              `json:"default_carrier_account,omitempty"`
 	DefaultServiceLevelToken string              `json:"default_servicelevel_token,omitempty"`
 	LabelFileType            string              `json:"label_filetype,omitempty"`

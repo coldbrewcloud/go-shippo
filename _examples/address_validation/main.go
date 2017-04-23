@@ -19,16 +19,15 @@ func main() {
 
 	// Address #1: Valid
 	address1Input := &models.AddressInput{
-		Name:          "Shawn Ippotle",
-		ObjectPurpose: models.ObjectPurposePurchase,
-		Company:       "Shippo",
-		Street1:       "215 Clayton St.",
-		City:          "San Francisco",
-		State:         "CA",
-		Zip:           "94117",
-		Country:       "US",
-		Email:         "shippotle@goshippo.com",
-		Validate:      true,
+		Name:     "Shawn Ippotle",
+		Company:  "Shippo",
+		Street1:  "215 Clayton St.",
+		City:     "San Francisco",
+		State:    "CA",
+		Zip:      "94117",
+		Country:  "US",
+		Email:    "shippotle@goshippo.com",
+		Validate: true,
 	}
 	address1, err := c.CreateAddress(address1Input)
 	if err != nil {
@@ -38,15 +37,14 @@ func main() {
 
 	// Address #2: Wrong street name
 	address2Input := &models.AddressInput{
-		Name:          "Mr. Hippo",
-		ObjectPurpose: models.ObjectPurposePurchase,
-		Street1:       "4610 Clayton St.",
-		City:          "San Francisco",
-		State:         "CA",
-		Zip:           "94107",
-		Country:       "US",
-		Email:         "mrhippo@goshippo.com",
-		Validate:      true,
+		Name:     "Mr. Hippo",
+		Street1:  "4610 Clayton St.",
+		City:     "San Francisco",
+		State:    "CA",
+		Zip:      "94107",
+		Country:  "US",
+		Email:    "mrhippo@goshippo.com",
+		Validate: true,
 	}
 	address2, err := c.CreateAddress(address2Input)
 	if err != nil {

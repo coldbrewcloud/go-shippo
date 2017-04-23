@@ -30,15 +30,14 @@ func main() {
 func createShipment(c *client.Client) *models.Shipment {
 	// create a sending address
 	addressFromInput := &models.AddressInput{
-		ObjectPurpose: models.ObjectPurposePurchase,
-		Name:          "Mr. Hippo",
-		Street1:       "215 Clayton St.",
-		City:          "San Francisco",
-		State:         "CA",
-		Zip:           "94117",
-		Country:       "US",
-		Phone:         "+1 555 341 9393",
-		Email:         "support@goshippo.com",
+		Name:    "Mr. Hippo",
+		Street1: "215 Clayton St.",
+		City:    "San Francisco",
+		State:   "CA",
+		Zip:     "94117",
+		Country: "US",
+		Phone:   "+1 555 341 9393",
+		Email:   "support@goshippo.com",
 	}
 	addressFrom, err := c.CreateAddress(addressFromInput)
 	if err != nil {
@@ -47,15 +46,14 @@ func createShipment(c *client.Client) *models.Shipment {
 
 	// create a receiving address
 	addressToInput := &models.AddressInput{
-		ObjectPurpose: models.ObjectPurposePurchase,
-		Name:          "Mrs. Hippo",
-		Street1:       "965 Mission St.",
-		City:          "San Francisco",
-		State:         "CA",
-		Zip:           "94105",
-		Country:       "US",
-		Phone:         "+1 555 341 9393",
-		Email:         "support@goshippo.com",
+		Name:    "Mrs. Hippo",
+		Street1: "965 Mission St.",
+		City:    "San Francisco",
+		State:   "CA",
+		Zip:     "94105",
+		Country: "US",
+		Phone:   "+1 555 341 9393",
+		Email:   "support@goshippo.com",
 	}
 	addressTo, err := c.CreateAddress(addressToInput)
 	if err != nil {
@@ -78,11 +76,10 @@ func createShipment(c *client.Client) *models.Shipment {
 
 	// create a shipment
 	shipmentInput := &models.ShipmentInput{
-		ObjectPurpose: models.ObjectPurposePurchase,
-		AddressFrom:   addressFrom.ObjectID,
-		AddressTo:     addressTo.ObjectID,
-		Parcel:        parcel.ObjectID,
-		Async:         false,
+		AddressFrom: addressFrom.ObjectID,
+		AddressTo:   addressTo.ObjectID,
+		Parcels:     []string{parcel.ObjectID},
+		Async:       false,
 	}
 	shipment, err := c.CreateShipment(shipmentInput)
 	if err != nil {
@@ -96,7 +93,7 @@ func createShipment(c *client.Client) *models.Shipment {
 
 func purchaseShippingLabel(c *client.Client, shipment *models.Shipment) {
 	transactionInput := &models.TransactionInput{
-		Rate:          shipment.RatesList[len(shipment.RatesList)-1].ObjectID,
+		Rate:          shipment.Rates[len(shipment.Rates)-1].ObjectID,
 		LabelFileType: models.LabelFileTypePDF,
 		Async:         false,
 	}

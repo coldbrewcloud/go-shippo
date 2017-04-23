@@ -9,9 +9,9 @@ type Rate struct {
 	Amount           string           `json:"amount"`
 	Currency         string           `json:"currency"`
 	Provider         string           `json:"provider"`
-	ProviderImage75  string           `json:"provider_Image_75"`
-	ProviderImage200 string           `json:"provider_Image_200"`
-	ServiceLevel     *ServiceLevel    `json:"serviceLevel"`
+	ProviderImage75  string           `json:"provider_image_75"`
+	ProviderImage200 string           `json:"provider_image_200"`
+	ServiceLevel     *ServiceLevel    `json:"servicelevel"`
 	Days             int              `json:"days"`
 	DurationTerms    string           `json:"duration_terms"`
 	CarrierAccount   string           `json:"carrier_account"`

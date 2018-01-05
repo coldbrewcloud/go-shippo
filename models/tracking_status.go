@@ -21,7 +21,7 @@ type TrackingStatusInput struct {
 type TrackingStatus struct {
 	TrackingStatusInput
 	AddressFrom     *TrackingStatusLocation `json:"address_from,omitempty"`
-	AddressTo       *TrackingStatusLocation `json:"address_from,omitempty"`
+	AddressTo       *TrackingStatusLocation `json:"address_to,omitempty"`
 	ETA             time.Time               `json:"eta"`
 	ServiceLevel    *ServiceLevel           `json:"servicelevel,omitempty"`
 	TrackingStatus  *TrackingStatusDict     `json:"tracking_status,omitempty"`

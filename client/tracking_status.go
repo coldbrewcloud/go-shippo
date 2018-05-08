@@ -24,7 +24,7 @@ func (c *Client) GetTrackingUpdate(carrier, trackingNumber string) (*models.Trac
 // RegisterTrackingWebhook registers a tracking webhook.
 // TODO: documentation on this API endpoint is not clear.
 // https://goshippo.com/docs/reference#track-create
-func (c *Client) RegisterTrackingWebhook(carrier, trackingNumber string) (*models.TrackingStatus, error) {
+func (c *Client) RegisterTrackingWebhook(carrier, trackingNumber, metadata string) (*models.TrackingStatus, error) {
 	if carrier == "" {
 		return nil, errors.New("Empty carrier")
 	}
@@ -36,6 +36,7 @@ func (c *Client) RegisterTrackingWebhook(carrier, trackingNumber string) (*model
 	err := c.do(http.MethodPost, "/tracks/", &models.TrackingStatusInput{
 		Carrier:        carrier,
 		TrackingNumber: trackingNumber,
+		Metadata:       metadata,
 	}, output)
 	return output, err
 }

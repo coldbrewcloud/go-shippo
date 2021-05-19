@@ -1,5 +1,7 @@
 package models
 
+import "time"
+
 // See https://goshippo.com/docs/reference#transactions
 type TransactionInput struct {
 	Rate          string `json:"rate,omitempty"`
@@ -16,15 +18,16 @@ type TransactionInput struct {
 type Transaction struct {
 	TransactionInput
 	CommonOutputFields
-	ObjectState          string                `json:"object_state,omitempty"`
-	Status               string                `json:"status,omitempty"`
-	Test                 bool                  `json:"test"`
-	TrackingNumber       string                `json:"tracking_number,omitempty"`
-	TrackingStatus       *TrackingStatusDict   `json:"tracking_status,omitempty"`
-	TrackingHistory      []*TrackingStatusDict `json:"tracking_history,omitempty"`
-	TrackingURLProvider  string                `json:"tracking_url_provider,omitempty"`
-	LabelURL             string                `json:"label_url,omitempty"`
-	CommercialInvoiceURL string                `json:"commercial_invoice_url,omitempty"`
-	Messages             []*OutputMessage      `json:"messages,omitempty"`
-	Async                bool                  `json:"async"`
+	ObjectState          string           `json:"object_state,omitempty"`
+	Status               string           `json:"status,omitempty"`
+	Test                 bool             `json:"test"`
+	TrackingNumber       string           `json:"tracking_number,omitempty"`
+	TrackingStatus       string           `json:"tracking_status,omitempty"`
+	TrackingURLProvider  string           `json:"tracking_url_provider,omitempty"`
+	Eta                  time.Time        `json:"eta,omitempty"`
+	LabelURL             string           `json:"label_url,omitempty"`
+	CommercialInvoiceURL string           `json:"commercial_invoice_url,omitempty"`
+	Messages             []*OutputMessage `json:"messages,omitempty"`
+	QRCodeURL            string           `json:"qr_code_url,omitempty"`
+	Async                bool             `json:"async"`
 }

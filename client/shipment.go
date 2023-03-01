@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // CreateShipment creates a new shipment object.
@@ -64,7 +64,7 @@ func (c *Client) CreateShipment(input *models.ShipmentInput) (*models.Shipment, 
 // RetrieveShipment retrieves an existing shipment by object id.
 func (c *Client) RetrieveShipment(objectID string) (*models.Shipment, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.Shipment{}

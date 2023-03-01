@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // RetrieveBatch retrieves an existing batch. BatchShipments are displayed 100 at a time.
@@ -14,7 +14,7 @@ import (
 // You can also filter based on BatchShipment status using objectResultsFilter parameter
 func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter string) (*models.Batch, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	url := "/batches/" + objectID
@@ -37,7 +37,7 @@ func (c *Client) RetrieveBatch(objectID string, page uint, objectResultsFilter s
 // AddBatchShipmentsToBatch adds batch shipment(s) to an existing Batch.
 func (c *Client) AddBatchShipmentsToBatch(objectID string, batchShipments []*models.BatchShipmentInput) (*models.Batch, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 	if batchShipments == nil {
 		return nil, errors.New("nil batch shipments")
@@ -51,7 +51,7 @@ func (c *Client) AddBatchShipmentsToBatch(objectID string, batchShipments []*mod
 // RemoveBatchShipmentsFromBatch removes batch shipment(s) from an existing Batch.
 func (c *Client) RemoveBatchShipmentsFromBatch(objectID string, batchShipmentIDs []string) (*models.Batch, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 	if batchShipmentIDs == nil {
 		return nil, errors.New("nil batch shipment IDs")
@@ -68,7 +68,7 @@ func (c *Client) RemoveBatchShipmentsFromBatch(objectID string, batchShipmentIDs
 // and you will receive a batch_purchased webhook indicating that the batch has been purchased.
 func (c *Client) PurchaseBatch(objectID string) (*models.Batch, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.Batch{}

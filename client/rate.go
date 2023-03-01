@@ -5,16 +5,16 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // GetShippingRates gets rates for a shipping object.
 func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*models.Rate, error) {
 	if shipmentObjectID == "" {
-		return nil, errors.New("Empty shipment object ID")
+		return nil, errors.New("empty shipment object ID")
 	}
 	if currencyCode == "" {
-		return nil, errors.New("Empty currency code")
+		return nil, errors.New("empty currency code")
 	}
 
 	list := []*models.Rate{}
@@ -33,7 +33,7 @@ func (c *Client) GetShippingRates(shipmentObjectID, currencyCode string) ([]*mod
 // RetrieveRate retrieves an existing rate by object id.
 func (c *Client) RetrieveRate(objectID string) (*models.Rate, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.Rate{}

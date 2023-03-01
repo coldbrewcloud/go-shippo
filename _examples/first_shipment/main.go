@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/coldbrewcloud/go-shippo"
-	"github.com/coldbrewcloud/go-shippo/client"
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo"
+	"github.com/courtyard-nft/go-shippo/client"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 func main() {

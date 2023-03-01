@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/coldbrewcloud/go-shippo/errors"
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/errors"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 const (
@@ -47,14 +47,14 @@ func (c *Client) do(method, path string, input, output interface{}) error {
 
 	req, err := c.createRequest(method, url, input)
 	if err != nil {
-		return fmt.Errorf("Error creating request object: %s", err.Error())
+		return fmt.Errorf("error creating request object: %s", err.Error())
 	}
 
 	if err := c.executeRequest(req, output); err != nil {
 		if aerr, ok := err.(*errors.APIError); ok {
 			return aerr
 		}
-		return fmt.Errorf("Error executing request: %s", err.Error())
+		return fmt.Errorf("error executing request: %s", err.Error())
 	}
 
 	return nil
@@ -66,7 +66,7 @@ func (c *Client) doList(method, path string, input interface{}, outputCallback l
 	for {
 		req, err := c.createRequest(method, nextURL, input)
 		if err != nil {
-			return fmt.Errorf("Error creating request object: %s", err.Error())
+			return fmt.Errorf("error creating request object: %s", err.Error())
 		}
 
 		listOutput := &models.ListAPIOutput{}
@@ -74,12 +74,12 @@ func (c *Client) doList(method, path string, input interface{}, outputCallback l
 			if aerr, ok := err.(*errors.APIError); ok {
 				return aerr
 			}
-			return fmt.Errorf("Error executing request: %s", err.Error())
+			return fmt.Errorf("error executing request: %s", err.Error())
 		}
 
 		for _, v := range listOutput.Results {
 			if err := outputCallback(v); err != nil {
-				return fmt.Errorf("Error unmarshalling output item: %s", err.Error())
+				return fmt.Errorf("error unmarshalling output item: %s", err.Error())
 			}
 		}
 
@@ -127,7 +127,7 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (req 
 	if bodyObject != nil {
 		data, err := json.Marshal(bodyObject)
 		if err != nil {
-			return nil, fmt.Errorf("Error marshaling body object: %s", err.Error())
+			return nil, fmt.Errorf("error marshaling body object: %s", err.Error())
 		}
 
 		reqBodyDebug = data
@@ -137,7 +137,7 @@ func (c *Client) createRequest(method, url string, bodyObject interface{}) (req 
 
 	req, err = http.NewRequest(method, url, reqBody)
 	if err != nil {
-		return nil, fmt.Errorf("Error creating HTTP request: %s", err.Error())
+		return nil, fmt.Errorf("error creating HTTP request: %s", err.Error())
 	}
 
 	req.Header.Set("Content-Type", "application/json")
@@ -167,13 +167,13 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) (err erro
 
 	res, err := httpClient.Do(req)
 	if err != nil {
-		return fmt.Errorf("Error making HTTP request: %s", err.Error())
+		return fmt.Errorf("error making HTTP request: %s", err.Error())
 	}
 	defer res.Body.Close()
 
 	resData, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		return fmt.Errorf("Error reading response body data: %s", err.Error())
+		return fmt.Errorf("error reading response body data: %s", err.Error())
 	}
 
 	if c.logger != nil {
@@ -183,7 +183,7 @@ func (c *Client) executeRequest(req *http.Request, output interface{}) (err erro
 	if res.StatusCode >= 200 && res.StatusCode < 300 {
 		if output != nil && len(resData) > 0 {
 			if err := json.Unmarshal(resData, output); err != nil {
-				return fmt.Errorf("Error unmarshaling response data: %s", err.Error())
+				return fmt.Errorf("error unmarshaling response data: %s", err.Error())
 			}
 		}
 

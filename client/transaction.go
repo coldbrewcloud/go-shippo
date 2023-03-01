@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // PurchaseShippingLabel creates a new transaction object and purchases the shipping label for the provided rate.
@@ -22,7 +22,7 @@ func (c *Client) PurchaseShippingLabel(input *models.TransactionInput) (*models.
 // RetrieveTransaction retrieves an existing transaction by object id.
 func (c *Client) RetrieveTransaction(objectID string) (*models.Transaction, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.Transaction{}

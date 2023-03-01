@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // CreateParcel creates a new parcel object.
@@ -22,7 +22,7 @@ func (c *Client) CreateParcel(input *models.ParcelInput) (*models.Parcel, error)
 // RetrieveParcel retrieves an existing parcel by object id.
 func (c *Client) RetrieveParcel(objectID string) (*models.Parcel, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.Parcel{}

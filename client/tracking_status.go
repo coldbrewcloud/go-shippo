@@ -4,16 +4,16 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // GetTrackingUpdate requests the tracking status of a shipment.
 func (c *Client) GetTrackingUpdate(carrier, trackingNumber string) (*models.TrackingStatus, error) {
 	if carrier == "" {
-		return nil, errors.New("Empty carrier")
+		return nil, errors.New("empty carrier")
 	}
 	if trackingNumber == "" {
-		return nil, errors.New("Empty tracking number")
+		return nil, errors.New("empty tracking number")
 	}
 
 	output := &models.TrackingStatus{}
@@ -26,10 +26,10 @@ func (c *Client) GetTrackingUpdate(carrier, trackingNumber string) (*models.Trac
 // https://goshippo.com/docs/reference#tracks-create
 func (c *Client) RegisterTrackingWebhook(carrier, trackingNumber, metadata string) (*models.TrackingStatus, error) {
 	if carrier == "" {
-		return nil, errors.New("Empty carrier")
+		return nil, errors.New("empty carrier")
 	}
 	if trackingNumber == "" {
-		return nil, errors.New("Empty tracking number")
+		return nil, errors.New("empty tracking number")
 	}
 
 	output := &models.TrackingStatus{}

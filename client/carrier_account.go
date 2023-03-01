@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/courtyard-nft/go-shippo/models"
 )
 
 // CreateCarrierAccount creates a new carrier account object.
@@ -22,7 +22,7 @@ func (c *Client) CreateCarrierAccount(input *models.CarrierAccountInput) (*model
 // RetrieveCarrierAccount retrieves an existing carrier account by object id.
 func (c *Client) RetrieveCarrierAccount(objectID string) (*models.CarrierAccount, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 
 	output := &models.CarrierAccount{}
@@ -49,7 +49,7 @@ func (c *Client) ListAllCarrierAccounts() ([]*models.CarrierAccount, error) {
 // AccountID and Carrier cannot be updated because they form the unique identifier together.
 func (c *Client) UpdateCarrierAccount(objectID string, input *models.CarrierAccountInput) (*models.CarrierAccount, error) {
 	if objectID == "" {
-		return nil, errors.New("Empty object ID")
+		return nil, errors.New("empty object ID")
 	}
 	if input == nil {
 		return nil, errors.New("nil input")

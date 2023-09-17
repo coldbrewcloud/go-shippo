@@ -1,4 +1,0 @@
-package: github.com/coldbrewcloud/go-shippo
-import:
-- package: github.com/stretchr/testify
-  version: 976c720a22c8eb4eb6a0b4348ad85ad12491a506

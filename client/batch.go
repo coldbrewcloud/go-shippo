@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/coldbrewcloud/go-shippo/models"
+	"github.com/corvallis3d/go-shippo/models"
 )
 
 // RetrieveBatch retrieves an existing batch. BatchShipments are displayed 100 at a time.

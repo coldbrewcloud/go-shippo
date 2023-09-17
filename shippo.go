@@ -1,6 +1,6 @@
 package shippo
 
-import "github.com/coldbrewcloud/go-shippo/client"
+import "github.com/corvallis3d/go-shippo/client"
 
 const (
 	APIVersion20140211 = "2014-02-11"

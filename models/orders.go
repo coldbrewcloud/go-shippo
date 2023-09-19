@@ -2,21 +2,21 @@ package models
 
 import "time"
 
-type Order struct {
-	ToAddress            AddressInput `json:"to_address"`
-	LineItems            []LineItem   `json:"line_items"`
-	PlacedAt             time.Time    `json:"placed_at"`
-	OrderNumber          string       `json:"order_number"`
-	OrderStatus          string       `json:"order_status"`
-	ShippingCost         string       `json:"shipping_cost"`
-	ShippingCostCurrency string       `json:"shipping_cost_currency"`
-	ShippingMethod       string       `json:"shipping_method"`
-	SubtotalPrice        string       `json:"subtotal_price"`
-	TotalPrice           string       `json:"total_price"`
-	TotalTax             string       `json:"total_tax"`
-	Currency             string       `json:"currency"`
-	Weight               string       `json:"weight"`
-	WeightUnit           string       `json:"weight_unit"`
+type OrderInput struct {
+	ToAddress            interface{} `json:"to_address"`
+	LineItems            []LineItem  `json:"line_items"`
+	PlacedAt             time.Time   `json:"placed_at"`
+	OrderNumber          string      `json:"order_number"`
+	OrderStatus          string      `json:"order_status"`
+	ShippingCost         string      `json:"shipping_cost"`
+	ShippingCostCurrency string      `json:"shipping_cost_currency"`
+	ShippingMethod       string      `json:"shipping_method"`
+	SubtotalPrice        string      `json:"subtotal_price"`
+	TotalPrice           string      `json:"total_price"`
+	TotalTax             string      `json:"total_tax"`
+	Currency             string      `json:"currency"`
+	Weight               string      `json:"weight"`
+	WeightUnit           string      `json:"weight_unit"`
 }
 
 type LineItem struct {

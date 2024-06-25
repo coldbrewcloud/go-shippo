@@ -29,7 +29,7 @@ type ParcelCOD struct {
 type ParcelInsurance struct {
 	Amount   string `json:"amount"`
 	Currency string `json:"currency"`
-	Provider string `json:"provider"`
+	Provider string `json:"provider,omitempty"`
 	Content  string `json:"content"`
 }
 

@@ -8,6 +8,7 @@ const (
 	CustomsContentsTypeGift                 = "GIFT"
 	CustomsContentsTypeSample               = "SAMPLE"
 	CustomsContentsTypeHumanitarianDonation = "HUMANITARIAN_DONATION"
+	CustomsContentsTypeMerchandise          = "MERCHANDISE"
 	CustomsContentsTypeReturnMerchandise    = "RETURN_MERCHANDISE"
 	CustomsContentsTypeOther                = "OTHER"
 

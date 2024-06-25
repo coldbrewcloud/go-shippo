@@ -6,7 +6,7 @@ import "time"
 type TransactionInput struct {
 	Rate          string `json:"rate,omitempty"`
 	Metadata      string `json:"metadata,omitempty"`
-	LabelFileType string `json:"label_file_type"`
+	LabelFileType string `json:"label_file_type,omitempty"`
 	Async         bool   `json:"async"`
 
 	Shipment         *ShipmentInput `json:"shipment,omitempty"`              // instant call only: https://goshippo.com/docs/reference#transactions-create-instant
